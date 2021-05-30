@@ -1,0 +1,27 @@
+payload:
+  - PROCESS-NAME,com.ximalaya.ting.himalaya
+  - DOMAIN-SUFFIX,himalaya.com
+  - PROCESS-NAME,au.com.shiftyjelly.pocketcasts
+# > YouTube
+  - PROCESS-NAME,com.vanced.android.youtube
+  - PROCESS-NAME,com.mgoogle.android.gms
+  - PROCESS-NAME,com.google.android.youtube
+  - PROCESS-NAME,com.google.android.youtube.tv
+# 91porn
+  - DOMAIN-SUFFIX,91porn.com
+# adult
+  - DOMAIN-SUFFIX,t66y.com
+  - DOMAIN-SUFFIX,xvideos.com
+  - DOMAIN-SUFFIX,kdw019.com
+## Japanese
+  - DOMAIN-SUFFIX,dmm.co.jp
+  - DOMAIN-KEYWORD,dmm
+# > Emby
+  - DOMAIN-KEYWORD,emby
+  - DOMAIN-SUFFIX,emby.nexitally.com
+  - DOMAIN-SUFFIX,plusmedia.site
+  - DOMAIN-SUFFIX,mickeycloud.com
+  - DOMAIN-SUFFIX,emby.wtf
+#欧乐影院
+  - DOMAIN-SUFFIX,olevod.com
+  - DOMAIN-KEYWORD,ole

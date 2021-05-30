@@ -1,0 +1,7 @@
+payload:
+#Google
+  - DOMAIN-SUFFIX,googleapis.cn
+  - DOMAIN-SUFFIX,googleapis.com
+  - PROCESS-NAME,com.google.android.gsf
+  - PROCESS-NAME,com.google.android.gms
+  - PROCESS-NAME,com.android.vending
