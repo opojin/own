@@ -5,3 +5,4 @@ payload:
   - PROCESS-NAME,com.google.android.gsf
   - PROCESS-NAME,com.google.android.gms
   - PROCESS-NAME,com.android.vending
+  - DOMAIN-SUFFIX,maodou2021.xyz
