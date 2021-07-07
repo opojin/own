@@ -25,3 +25,65 @@ payload:
 #欧乐影院
   - DOMAIN-SUFFIX,olevod.com
   - DOMAIN-KEYWORD,ole
+# > Dropbox
+  - DOMAIN-SUFFIX,dropbox.com
+  - DOMAIN-SUFFIX,dropboxapi.com
+  - DOMAIN-SUFFIX,dropboxusercontent.com
+  # > Facebook
+  - DOMAIN-SUFFIX,cdninstagram.com
+  - DOMAIN-SUFFIX,facebook.com
+  - DOMAIN-SUFFIX,facebook.net
+  - DOMAIN-SUFFIX,fb.com
+  - DOMAIN-SUFFIX,fb.me
+  - DOMAIN-SUFFIX,fbaddins.com
+  - DOMAIN-SUFFIX,fbcdn.net
+  - DOMAIN-SUFFIX,fbsbx.com
+  - DOMAIN-SUFFIX,fbworkmail.com
+  - DOMAIN-SUFFIX,instagram.com
+  - DOMAIN-SUFFIX,m.me
+  - DOMAIN-SUFFIX,messenger.com
+  - DOMAIN-SUFFIX,oculus.com
+  - DOMAIN-SUFFIX,oculuscdn.com
+  - DOMAIN-SUFFIX,rocksdb.org
+  - DOMAIN-SUFFIX,whatsapp.com
+  - DOMAIN-SUFFIX,whatsapp.net
+  # > Github
+  - DOMAIN-SUFFIX,github.com
+  - DOMAIN-SUFFIX,github.io
+  - DOMAIN-SUFFIX,githubusercontent.com
+  # > Telegram
+  - DOMAIN-SUFFIX,telegra.ph
+  - DOMAIN-SUFFIX,telegram.org
+  - IP-CIDR,91.108.4.0/22,no-resolve
+  - IP-CIDR,91.108.8.0/22,no-resolve
+  - IP-CIDR,91.108.12.0/22,no-resolve
+  - IP-CIDR,91.108.16.0/22,no-resolve
+  - IP-CIDR,91.108.20.0/22,no-resolve
+  - IP-CIDR,91.108.56.0/22,no-resolve
+  - IP-CIDR,95.161.64.0/20,no-resolve
+  - IP-CIDR,149.154.160.0/20,no-resolve
+  - IP-CIDR,2001:b28:f23d::/48,no-resolve
+  - IP-CIDR,2001:b28:f23f::/48,no-resolve
+  - IP-CIDR,2001:67c:4e8::/48,no-resolve
+  # > Twitter
+  - DOMAIN-SUFFIX,pscp.tv
+  - DOMAIN-SUFFIX,periscope.tv
+  - DOMAIN-SUFFIX,t.co
+  - DOMAIN-SUFFIX,twimg.co
+  - DOMAIN-SUFFIX,twimg.com
+  - DOMAIN-SUFFIX,twitpic.com
+  - DOMAIN-SUFFIX,twitter.com
+  - DOMAIN-SUFFIX,vine.co
+  # > Telegram
+  - DOMAIN-SUFFIX,t.me
+  - DOMAIN-SUFFIX,tdesktop.com
+  - DOMAIN-SUFFIX,telegram.me
+  - DOMAIN-SUFFIX,telesco.pe
+  # > Facebook
+  - DOMAIN-KEYWORD,.facebook.
+  - DOMAIN-SUFFIX,facebookmail.com
+  # > Others
+  - DOMAIN-SUFFIX,noxinfluencer.com
+  - DOMAIN-SUFFIX,smartmailcloud.com
+  - DOMAIN-SUFFIX,weebly.com
+  - DOMAIN-SUFFIX,twitter.jp
