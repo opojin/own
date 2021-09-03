@@ -27,3 +27,5 @@ payload:
   - DOMAIN-KEYWORD,ole
 #ODC北美影院
   - DOMAIN-SUFFIX,ondemandchina.com
+  - DOMAIN-KEYWORD,odkmedia
+  
