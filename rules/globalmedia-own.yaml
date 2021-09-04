@@ -28,4 +28,8 @@ payload:
 #ODC北美影院
   - DOMAIN-SUFFIX,ondemandchina.com
   - DOMAIN-KEYWORD,odkmedia
-  
+#胖子tv
+  - DOMAIN-SUFFIX,pangzitv.com
+  - DOMAIN-SUFFIX,pztv.ca
+#唐人街tv
+  - DOMAIN-SUFFIX,tangrenjie.tv
