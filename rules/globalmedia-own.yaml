@@ -33,3 +33,5 @@ payload:
   - DOMAIN-SUFFIX,pztv.ca
 #唐人街tv
   - DOMAIN-SUFFIX,tangrenjie.tv
+#低端影视
+  - DOMAIN,ddystv-my.sharepoint.com
