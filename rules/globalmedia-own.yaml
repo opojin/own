@@ -35,3 +35,6 @@ payload:
   - DOMAIN-SUFFIX,tangrenjie.tv
 #低端影视
   - DOMAIN,ddystv-my.sharepoint.com
+#泥巴影院
+  - DOMAIN-SUFFIX,mudvod.tv
+  - DOMAIN-SUFFIX,vod360.net
