@@ -21,6 +21,7 @@ payload:
   - DOMAIN,yt3.ggpht.com
  # 91porn
   - DOMAIN-SUFFIX,91porn.com
+  - DOMAIN-SUFFIX,pornhub.com
  # adult
   - DOMAIN-SUFFIX,t66y.com
   - DOMAIN-SUFFIX,xvideos.com
