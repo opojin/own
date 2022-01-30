@@ -7,6 +7,18 @@ payload:
   - PROCESS-NAME,com.mgoogle.android.gms
   - PROCESS-NAME,com.google.android.youtube
   - PROCESS-NAME,com.google.android.youtube.tv
+  - DOMAIN-SUFFIX,googlevideo.com
+  - DOMAIN-SUFFIX,withyoutube.com
+  - DOMAIN-SUFFIX,youtu.be
+  - DOMAIN-SUFFIX,youtube.com
+  - DOMAIN-SUFFIX,youtubeeducation.com
+  - DOMAIN-SUFFIX,youtubegaming.com
+  - DOMAIN-SUFFIX,youtubekids.com
+  - DOMAIN-SUFFIX,youtube-nocookie.com
+  - DOMAIN-SUFFIX,yt.be
+  - DOMAIN-SUFFIX,ytimg.com
+  - DOMAIN,youtubei.googleapis.com
+  - DOMAIN,yt3.ggpht.com
  # 91porn
   - DOMAIN-SUFFIX,91porn.com
  # adult
@@ -16,12 +28,6 @@ payload:
 ## Japanese
   - DOMAIN-SUFFIX,dmm.co.jp
   - DOMAIN-KEYWORD,dmm
-# > Emby
-  - DOMAIN-KEYWORD,emby
-  - DOMAIN-SUFFIX,emby.nexitally.com
-  - DOMAIN-SUFFIX,plusmedia.site
-  - DOMAIN-SUFFIX,mickeycloud.com
-  - DOMAIN-SUFFIX,emby.wtf
 #欧乐影院
   - DOMAIN-SUFFIX,olevod.com
   - DOMAIN-KEYWORD,ole
