@@ -3,7 +3,7 @@ payload:
   - DOMAIN-SUFFIX,static.storyfm.cn
   - DOMAIN-KEYWORD,storyfm
   - DOMAIN-KEYWORD,ikandy
-  - DOMAIN-SUFFIX,maodou2022.xyz
+  #- DOMAIN-SUFFIX,maodou2022.xyz
   - PROCESS-NAME,Thunder
   - PROCESS-NAME,DownloadService
   - PROCESS-NAME,qBittorrent
