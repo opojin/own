@@ -5,6 +5,7 @@ payload:
   - DOMAIN-SUFFIX,static.storyfm.cn
   - DOMAIN-KEYWORD,storyfm
   - DOMAIN-KEYWORD,ikandy
+  - DOMAIN-KEYWORD,aliyun
   - PROCESS-NAME,Thunder
   - PROCESS-NAME,DownloadService
   - PROCESS-NAME,qBittorrent
