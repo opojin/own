@@ -4,7 +4,6 @@ payload:
   - PROCESS-NAME,com.mgoogle.android.gms
   - PROCESS-NAME,com.google.android.youtube
   - PROCESS-NAME,com.google.android.youtube.tv
-  - PROCESS-NAME,com.google.android.apps.googlevoice
   - DOMAIN-SUFFIX,googlevideo.com
   - DOMAIN-SUFFIX,withyoutube.com
   - DOMAIN-SUFFIX,youtu.be
