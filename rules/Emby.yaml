@@ -1,0 +1,8 @@
+payload:
+  #Google
+  - PROCESS-NAME,com.mb.android.tg
+  - DOMAIN-SUFFIX,nextfilm.nmg.llc
+  - DOMAIN-SUFFIX,direct.nebula-emby.com
+  - DOMAIN-SUFFIX,misakaf.org
+  - DOMAIN-SUFFIX,emby.cyou
+  
