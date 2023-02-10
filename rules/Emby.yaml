@@ -5,4 +5,7 @@ payload:
   - DOMAIN-SUFFIX,direct.nebula-emby.com
   - DOMAIN-SUFFIX,misakaf.org
   - DOMAIN-SUFFIX,emby.cyou
+  - DOMAIN-SUFFIX,film.nmg.llc
+  - DOMAIN-SUFFIX,cmi.pololine.ml
+  - IP-CIDR,89.58.17.145/32,no-resolve
   
