@@ -16,6 +16,7 @@ payload:
   - DOMAIN-SUFFIX,ytimg.com
   - DOMAIN,youtubei.googleapis.com
   - DOMAIN,yt3.ggpht.com
+  - DOMAIN-KEYWORD,youtube
  # 91porn
   - DOMAIN-SUFFIX,91porn.com
  # adult
