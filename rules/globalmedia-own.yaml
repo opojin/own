@@ -17,6 +17,8 @@ payload:
   - DOMAIN,youtubei.googleapis.com
   - DOMAIN,yt3.ggpht.com
   - DOMAIN-KEYWORD,youtube
+  - DOMAIN-SUFFIX,sponsor.ajay.app
+  - DOMAIN-SUFFIX,returnyoutubedislikeapi
  # 91porn
   - DOMAIN-SUFFIX,91porn.com
  # adult
