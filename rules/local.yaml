@@ -5,5 +5,4 @@ payload:
   - DOMAIN-SUFFIX,smtp
   - DOMAIN-SUFFIX,local
   - DST-PORT,22
-  - IP-CIDR,172.110.32.0/21
   
