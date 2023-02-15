@@ -1,5 +1,5 @@
 payload:
-  - DOMAIN-KEYWORD,announce,no-resolve
+  - DOMAIN-KEYWORD,announce
   - DOMAIN-KEYWORD,torrent
   - DOMAIN-KEYWORD,tracker
   - DOMAIN-SUFFIX,smtp
