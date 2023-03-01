@@ -7,5 +7,6 @@ payload:
   - DOMAIN-SUFFIX,emby.cyou
   - DOMAIN-SUFFIX,film.nmg.llc
   - DOMAIN-SUFFIX,cmi.pololine.ml
+  - DOMAIN-SUFFIX,film.chinaisp.org
   - IP-CIDR,89.58.17.145/32,no-resolve
   
