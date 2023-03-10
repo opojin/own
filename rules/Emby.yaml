@@ -1,12 +1,17 @@
 payload:
-  #Google
+  #emby软件
   - PROCESS-NAME,com.mb.android.tg
-  - DOMAIN-SUFFIX,nextfilm.nmg.llc
+  #Mjj
+  - DOMAIN-SUFFIX,mjjemby.org
+  #星云
   - DOMAIN-SUFFIX,direct.nebula-emby.com
-  - DOMAIN-SUFFIX,misakaf.org
-  - DOMAIN-SUFFIX,emby.cyou
-  - DOMAIN-SUFFIX,film.nmg.llc
-  - DOMAIN-SUFFIX,cmi.pololine.ml
+  #PoloEmby
+  - DOMAIN-SUFFIX,pololine.ml
+  - DOMAIN-SUFFIX,poloemby.xyz
+  #NMEmby
   - DOMAIN-SUFFIX,film.chinaisp.org
-  - IP-CIDR,89.58.17.145/32,no-resolve
-  
+  - DOMAIN-SUFFIX,film.goodisp.org
+  #Infinityfly公益服开号
+  - DOMAIN-SUFFIX,infinityfly.top
+  #misakaf
+  - DOMAIN-SUFFIX,misakaf.org
