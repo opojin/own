@@ -3,6 +3,7 @@ payload:
   - PROCESS-NAME,com.mb.android.tg
   #Mjj
   - DOMAIN-SUFFIX,mjjemby.org
+  - IP-CIDR,85.239.235.232/32,no-resolve
   #星云
   - DOMAIN-SUFFIX,direct.nebula-emby.com
   #PoloEmby
