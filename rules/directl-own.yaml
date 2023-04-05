@@ -5,3 +5,5 @@ payload:
   - DOMAIN-SUFFIX,static.storyfm.cn
   - DOMAIN-KEYWORD,storyfm
   - DOMAIN-KEYWORD,ikandy
+  - DOMAIN-SUFFIX,ikvideo.org
+  - DOMAIN-SUFFIX,home.xsus.me
