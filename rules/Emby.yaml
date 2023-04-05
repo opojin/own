@@ -7,7 +7,6 @@ payload:
   #星云
   - DOMAIN-SUFFIX,direct.nebula-emby.com
   #PoloEmby
-  - DOMAIN-SUFFIX,pololine.ml
   - DOMAIN-SUFFIX,poloemby.xyz
   #NMEmby
   - DOMAIN-SUFFIX,film.chinaisp.org
@@ -16,3 +15,7 @@ payload:
   - DOMAIN-SUFFIX,infinityfly.top
   #misakaf
   - DOMAIN-SUFFIX,misakaf.org
+  #AcEmby
+  - DOMAIN-SUFFIX,acemby.org
+  #paul服
+  - DOMAIN-SUFFIX,imetyou.top
