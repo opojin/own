@@ -321,7 +321,8 @@
         "us",
         "us-auto",
         "all",
-        "all-auto"
+        "all-auto",
+        "rack"
       ],
       "default": "proxy"
     },
@@ -341,7 +342,8 @@
         "us-auto",
         "all",
         "all-auto",
-        "direct"
+        "direct",
+        "rack"
       ],
       "default": "all-auto"
     },
@@ -362,7 +364,8 @@
         "us",
         "us-auto",
         "all",
-        "all-auto"
+        "all-auto",
+        "rack"
       ],
       "default": "us-auto"
     },
@@ -383,7 +386,8 @@
         "us",
         "us-auto",
         "all",
-        "all-auto"
+        "all-auto",
+        "rack"
       ],
       "default": "proxy"
     },
@@ -404,7 +408,8 @@
         "us",
         "us-auto",
         "all",
-        "all-auto"
+        "all-auto",
+        "rack"
       ],
       "default": "sg-auto"
     },
@@ -425,7 +430,8 @@
         "us",
         "us-auto",
         "all",
-        "all-auto"
+        "all-auto",
+        "rack"
       ],
       "default": "direct"
     },
@@ -557,6 +563,11 @@
     },
     {
       "tag": "us",
+      "type": "selector",
+      "outbounds": []
+    },
+    {
+      "tag": "rack",
       "type": "selector",
       "outbounds": []
     },
