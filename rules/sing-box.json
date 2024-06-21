@@ -183,7 +183,6 @@
     "rule_set": [
       {
         "tag": "广告拦截",
-        "path": "/storage/emulated/0/Android/data/io.nekohasekai.sfa/files/RuleProviders/广告拦截.srs",
         "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
         "type": "remote",
         "format": "binary",
