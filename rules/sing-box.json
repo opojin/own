@@ -32,11 +32,6 @@
         "disable_cache": true
       },
       {
-        "rule_set": "广告拦截",
-        "server": "nxdomain",
-        "disable_cache": true
-      },
-      {
         "clash_mode": "Direct",
         "server": "tx"
       },
@@ -105,10 +100,6 @@
             "protocol": "stun"
           }
         ],
-        "outbound": "流量拦截"
-      },
-      {
-        "rule_set": "广告拦截",
         "outbound": "流量拦截"
       },
       {
