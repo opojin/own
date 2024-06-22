@@ -40,6 +40,13 @@
         "server": "fakeip"
       },
       {
+        "rule_set": "geosite-cn",
+        "server": "tx"
+      },
+      { "domain_suffix": "mobile.eslink.cc",
+        "server": "tx"
+      },
+      {
         "query_type": [
           "A",
           "AAAA"
@@ -47,13 +54,6 @@
         "rule_set": "geolocation-!cn",
         "server": "fakeip",
         "rewrite_ttl": 1
-      },
-      {
-        "rule_set": "geosite-cn",
-        "server": "tx"
-      },
-      { "domain_suffix": "mobile.eslink.cc",
-        "server": "tx"
       },
       {
         "type": "logical",
