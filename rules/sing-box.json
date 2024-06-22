@@ -52,6 +52,9 @@
         "rule_set": "geosite-cn",
         "server": "tx"
       },
+      { "domain_suffix": "mobile.eslink.cc",
+        "server": "tx"
+      },
       {
         "type": "logical",
         "mode": "and",
@@ -158,6 +161,10 @@
           "geosite-telegram"
         ],
         "outbound": "telegram"
+      },
+      {
+        "domain_suffix": "mobile.eslink.cc",
+        "outbound": "cn"
       },
       {
         "rule_set": [
