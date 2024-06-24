@@ -294,7 +294,6 @@
       "type": "selector",
       "outbounds": [
         "proxy",
-        "direct",
         "hk",
         "hk-auto",
         "tw",
@@ -315,7 +314,6 @@
       "type": "selector",
       "outbounds": [
         "proxy",
-        "direct",
         "tw",
         "tw-auto",
         "jp",
@@ -353,22 +351,7 @@
     {
       "tag": "openai",
       "type": "selector",
-      "outbounds": [
-        "proxy",
-        "direct",
-        "hk",
-        "hk-auto",
-        "tw",
-        "tw-auto",
-        "jp",
-        "sg",
-        "sg-auto",
-        "us",
-        "us-auto",
-        "all",
-        "all-auto"
-      ],
-      "default": "proxy"
+      "outbounds": []
     },
     {
       "tag": "cn",
