@@ -266,8 +266,6 @@
       "tag": "google",
       "type": "selector",
       "outbounds": [
-        "proxy",
-        "direct",
         "us",
         "us-auto",
         "all",
@@ -280,7 +278,6 @@
       "tag": "youtube",
       "type": "selector",
       "outbounds": [
-        "proxy",
         "hk",
         "hk-auto",
         "tw",
@@ -300,7 +297,6 @@
       "tag": "telegram",
       "type": "selector",
       "outbounds": [
-        "proxy",
         "tw",
         "tw-auto",
         "jp",
@@ -318,7 +314,6 @@
       "tag": "emby",
       "type": "selector",
       "outbounds": [
-        "proxy",
         "direct",
         "hk",
         "hk-auto",
