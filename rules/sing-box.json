@@ -2,19 +2,20 @@
   "dns": {
     "fakeip": {
       "enabled": true,
-      "inet4_range": "198.18.0.0/15",
-      "inet6_range": "fc00::/18"
+      "inet4_range": "198.18.0.0/15"
     },
     "servers": [
       {
         "tag": "google",
         "address": "https://8.8.8.8/dns-query",
-        "detour": "proxy"
+        "detour": "proxy",
+        "strategy": "ipv4_only"
       },
       {
         "tag": "tx",
         "address": "https://120.53.53.53/dns-query",
-        "detour": "direct"
+        "detour": "direct",
+        "strategy": "ipv4_only"
       },
       {
         "tag": "fakeip",
@@ -49,8 +50,7 @@
       },
       {
         "query_type": [
-          "A",
-          "AAAA"
+          "A"
         ],
         "rule_set": "geolocation-!cn",
         "server": "fakeip",
@@ -70,18 +70,11 @@
         ],
         "server": "google",
         "client_subnet": "114.114.114.114/24"
-      },
-      {
-        "query_type": [
-          "A",
-          "AAAA"
-        ],
-        "rewrite_ttl": 1,
-        "server": "fakeip"
       }
     ],
     "final": "google",
-    "independent_cache": true
+    "independent_cache": true,
+    "strategy": "ipv4_only"
   },
   "route": {
     "rules": [
@@ -164,7 +157,7 @@
         "outbound": "telegram"
       },
       {
-        "domain_suffix": "mobile.eslink.cc",
+        "domain_suffix": "eslink.cc",
         "outbound": "cn"
       },
       {
