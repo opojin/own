@@ -45,6 +45,10 @@
         "server": "fakeip"
       },
       {
+        "rule_set": "强制代理-域名",
+        "server": "google"
+      },
+      {
         "query_type": [
           "A",
           "AAAA"
@@ -54,7 +58,10 @@
         "rewrite_ttl": 1
       },
       {
-        "rule_set": "geosite-cn",
+        "rule_set": [
+          "geosite-cn",
+          "wechat"
+        ],
         "server": "tx"
       },
       {
@@ -74,6 +81,7 @@
       }
     ],
     "final": "google",
+    "strategy": "ipv4_only",
     "independent_cache": true
   },
   "route": {
@@ -149,6 +157,7 @@
       {
         "rule_set": [
           "geoip-cn",
+          "wechat",
           "geosite-cn"
         ],
         "outbound": "cn"
@@ -161,7 +170,7 @@
     "rule_set": [
       {
         "tag": "广告拦截",
-        "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
+        "url": "https://github.com/Toperlock/sing-box-geosite/raw/main/rule/adrules_domainset.srs",
         "type": "remote",
         "format": "binary",
         "download_detour": "proxy",
@@ -172,6 +181,13 @@
         "type": "local",
         "format": "source",
         "path": "/storage/emulated/0/Android/data/io.nekohasekai.sfa/files/RuleProviders/emby.json"
+      },
+      {
+        "tag": "wechat",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/WeChat.srs",
+        "download_detour": "direct"
       },
       {
         "tag": "geoip-cn",
@@ -339,8 +355,8 @@
       "tag": "cn",
       "type": "selector",
       "outbounds": [
-        "proxy",
         "direct",
+        "proxy",
         "hk",
         "hk-auto",
         "sg-auto",
@@ -430,17 +446,24 @@
       "outbounds": [
         "direct",
         "proxy",
+        "youtube",
+        "google",
+        "telegram",
+        "emby",
+        "openai",
+        "cn",
+        "rack",
+        "all",
+        "us",
+        "sg",
+        "all-auto",
+        "us-auto",
+        "sg-auto",
         "hk",
         "hk-auto",
         "tw",
         "tw-auto",
-        "jp",
-        "sg",
-        "sg-auto",
-        "us",
-        "us-auto",
-        "all",
-        "all-auto"
+        "jp"
       ],
       "default": "direct"
     },
@@ -462,8 +485,9 @@
       "type": "tun",
       "inet4_address": "172.19.0.0/30",
       "inet6_address": "fdfe:dcba:9876::0/126",
-      "stack": "mixed",
+      "stack": "system",
       "auto_route": true,
+      "strict_route": false,
       "sniff": true,
       "platform": {
         "http_proxy": {
