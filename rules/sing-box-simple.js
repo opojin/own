@@ -19,10 +19,10 @@ config.outbounds.map(i => {
   if (['all', 'all-auto'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies))
   }
-  if (['hk', 'hk-auto'].includes(i.tag)) {
+  if (['hk'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /港|hk|hongkong|kong kong|🇭🇰/i))
   }
-  if (['tw', 'tw-auto'].includes(i.tag)) {
+  if (['tw'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /台|tw|taiwan|🇹🇼/i))
   }
   if (['jp'].includes(i.tag)) {
