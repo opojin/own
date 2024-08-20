@@ -295,9 +295,7 @@
       "type": "selector",
       "outbounds": [
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
         "sg",
         "sg-auto",
@@ -314,7 +312,6 @@
       "type": "selector",
       "outbounds": [
         "tw",
-        "tw-auto",
         "jp",
         "sg",
         "sg-auto",
@@ -332,9 +329,7 @@
       "outbounds": [
         "direct",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp",
         "sg",
         "sg-auto",
@@ -358,7 +353,6 @@
         "direct",
         "proxy",
         "hk",
-        "hk-auto",
         "sg-auto",
         "all",
         "all-auto"
@@ -401,22 +395,6 @@
       "outbounds": []
     },
     {
-      "tag": "hk-auto",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "tolerance": 50
-    },
-    {
-      "tag": "tw-auto",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "tolerance": 50
-    },
-    {
       "tag": "sg-auto",
       "type": "urltest",
       "outbounds": [],
@@ -451,18 +429,16 @@
         "telegram",
         "emby",
         "openai",
-        "cn",
         "rack",
         "all",
         "us",
         "sg",
+        "cn",
         "all-auto",
         "us-auto",
         "sg-auto",
         "hk",
-        "hk-auto",
         "tw",
-        "tw-auto",
         "jp"
       ],
       "default": "direct"
