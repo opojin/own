@@ -152,7 +152,7 @@
       },
       {
         "domain_suffix": "eslink.cc",
-        "outbound": "cn"
+        "outbound": "direct"
       },
       {
         "rule_set": [
@@ -160,7 +160,7 @@
           "wechat",
           "geosite-geolocation-cn"
         ],
-        "outbound": "cn"
+        "outbound": "direct"
       },
       {
         "rule_set": "geosite-geolocation-!cn",
@@ -272,92 +272,54 @@
         "telegram",
         "openai",
         "all",
-        "all-auto",
-        "direct",
-        "rack"
+        "direct"
       ],
-      "default": "all-auto"
+      "default": "all"
     },
     {
       "tag": "google",
       "type": "selector",
       "outbounds": [
         "us",
-        "us-auto",
-        "all",
-        "all-auto",
-        "rack"
+        "all"
       ],
-      "default": "us-auto"
+      "default": "us"
     },
     {
       "tag": "youtube",
       "type": "selector",
       "outbounds": [
-        "hk",
-        "tw",
-        "jp",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
-        "all",
-        "all-auto",
-        "rack"
+        "all"
       ],
-      "default": "us-auto"
+      "default": "us"
     },
     {
       "tag": "telegram",
       "type": "selector",
       "outbounds": [
-        "tw",
-        "jp",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
-        "all",
-        "all-auto",
-        "rack"
+        "all"
       ],
-      "default": "sg-auto"
+      "default": "sg"
     },
     {
       "tag": "emby",
       "type": "selector",
       "outbounds": [
         "direct",
-        "hk",
-        "tw",
-        "jp",
         "sg",
-        "sg-auto",
         "us",
-        "us-auto",
-        "all",
-        "all-auto",
-        "rack"
+        "all"
       ],
-      "default": "direct"
+      "default": "all"
     },
     {
       "tag": "openai",
       "type": "selector",
       "outbounds": []
-    },
-    {
-      "tag": "cn",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "proxy",
-        "hk",
-        "sg-auto",
-        "all",
-        "all-auto"
-      ],
-      "default": "direct"
     },
     {
       "tag": "all",
@@ -370,53 +332,9 @@
       "outbounds": []
     },
     {
-      "tag": "rack",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "hk",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "tw",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "jp",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
       "tag": "sg",
       "type": "selector",
       "outbounds": []
-    },
-    {
-      "tag": "sg-auto",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "tolerance": 50
-    },
-    {
-      "tag": "us-auto",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "tolerance": 50
-    },
-    {
-      "tag": "all-auto",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://www.gstatic.com/generate_204",
-      "interval": "1m",
-      "tolerance": 50
     },
     {
       "tag": "GLOBAL",
@@ -429,17 +347,9 @@
         "telegram",
         "emby",
         "openai",
-        "rack",
         "all",
         "us",
-        "sg",
-        "cn",
-        "all-auto",
-        "us-auto",
-        "sg-auto",
-        "hk",
-        "tw",
-        "jp"
+        "sg"
       ],
       "default": "direct"
     },
