@@ -16,26 +16,17 @@ let proxies = await produceArtifact({
 config.outbounds.push(...proxies)
 
 config.outbounds.map(i => {
-  if (['all', 'all-auto'].includes(i.tag)) {
+  if (['all'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies))
   }
-  if (['hk'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /港|hk|hongkong|kong kong|🇭🇰/i))
+  if (['sg'].includes(i.tag)) {
+    i.outbounds.push(...getTags(proxies, /^(?!.*(?:us)).*(新|claw|sg|singapore|🇸🇬)/i))
   }
-  if (['tw'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /台|tw|taiwan|🇹🇼/i))
+  if (['openai'].includes(i.tag)) {
+    i.outbounds.push(...getTags(proxies, /美|rack|dmit|台|TW|unitedstates|united states|德|uk|法|英|🇺🇸/i))
   }
-  if (['jp'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /日本|jp|japan|🇯🇵/i))
-  }
-  if (['sg', 'sg-auto'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /^(?!.*(?:us)).*(新|sg|singapore|🇸🇬)/i))
-  }
-  if (['us', 'us-auto', 'openai'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /美|us|unitedstates|united states|德|uk|法|英|🇺🇸/i))
-  }
-  if (('rack').includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /rack/i))
+  if (['us'].includes(i.tag)) {
+    i.outbounds.push(...getTags(proxies, /美|rack|dmit|unitedstates|united states|德|uk|法|英|🇺🇸/i))
   }
 })
 
