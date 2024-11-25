@@ -53,7 +53,10 @@
           "A",
           "AAAA"
         ],
-        "rule_set": "geosite-geolocation-!cn",
+        "rule_set": [
+          "geosite-geolocation-!cn",
+          "openai"
+        ],
         "server": "fakeip",
         "rewrite_ttl": 1
       },
@@ -109,7 +112,7 @@
       },
       {
         "rule_set": "广告拦截",
-        "outbound": "direct"
+        "outbound": "流量拦截"
       },
       {
         "ip_is_private": true,
@@ -238,7 +241,7 @@
         "tag": "openai",
         "type": "remote",
         "format": "binary",
-        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
+        "url": "https://mirror.ghproxy.com/https://github.com/Toperlock/sing-box-geosite/raw/refs/heads/main/rule/OpenAI.srs",
         "download_detour": "direct"
       },
       {
