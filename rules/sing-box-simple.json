@@ -136,6 +136,10 @@
         "outbound": "openai"
       },
       {
+        "domain_keyword": ["openai","statsig","datadog"],
+        "outbound": "openai"
+      },
+      {
         "rule_set": [
           "强制代理-域名",
           "geoip-google",
