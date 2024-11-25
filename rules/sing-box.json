@@ -107,7 +107,7 @@
       },
       {
         "rule_set": "广告拦截",
-        "outbound": "流量拦截"
+        "outbound": "direct"
       },
       {
         "ip_is_private": true,
