@@ -54,8 +54,7 @@
           "AAAA"
         ],
         "rule_set": [
-          "geosite-geolocation-!cn",
-          "openai"
+          "geosite-geolocation-!cn"
         ],
         "server": "fakeip",
         "rewrite_ttl": 1
