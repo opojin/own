@@ -384,6 +384,10 @@
         "sg"
       ],
       "default": "direct"
+    },
+    {
+      "tag": "direct",
+      "type": "direct"
     }
   ],
   "inbounds": [
