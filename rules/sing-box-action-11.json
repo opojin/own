@@ -83,7 +83,7 @@
         "server": "fakeip"
       }
     ],
-    "strategy": "prefer_ipv4",
+    "strategy": "ipv4_only",
     "independent_cache": true
   },
   "route": {
@@ -403,7 +403,7 @@
       ],
       "stack": "system",
       "auto_route": true,
-      "strict_route": false,
+      "strict_route": true,
       "sniff": true,
       "platform": {
         "http_proxy": {
