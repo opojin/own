@@ -28,11 +28,13 @@
     "rules": [
       {
         "outbound": "any",
-        "server": "tx",
-        "disable_cache": true
+        "server": "tx"
       },
       {
-        "rule_set": "广告拦截",
+        "rule_set": [
+          "AWAvenue-Ads",
+          "广告拦截"
+        ],
         "action": "route-options",
         "server": "nxdomain",
         "disable_cache": true
@@ -73,24 +75,15 @@
         "server": "tx"
       },
       {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "geosite-geolocation-!cn",
-            "invert": true
-          },
-          {
-            "rule_set": "geoip-cn"
-          }
+        "query_type": [
+          "A",
+          "AAAA"
         ],
         "action": "route",
-        "server": "google",
-        "client_subnet": "114.114.114.114"
+        "server": "fakeip"
       }
     ],
-    "final": "google",
-    "strategy": "ipv4_only",
+    "strategy": "prefer_ipv4",
     "independent_cache": true
   },
   "route": {
@@ -129,7 +122,10 @@
         "action": "reject"
       },
       {
-        "rule_set": "广告拦截",
+        "rule_set": [
+          "AWAvenue-Ads",
+          "广告拦截"
+        ],
         "action": "reject"
       },
       {
@@ -208,6 +204,14 @@
         "update_interval": "24h"
       },
       {
+        "tag": "AWAvenue-Ads",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
+        "download_detour": "proxy",
+        "update_interval": "24h"
+      },
+      {
         "tag": "emby",
         "type": "local",
         "format": "source",
@@ -217,21 +221,21 @@
         "tag": "wechat",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/WeChat.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/WeChat.srs",
         "download_detour": "direct"
       },
       {
         "tag": "geoip-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/SagerNet/sing-geoip/raw/rule-set/geoip-cn.srs",
+        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geoip/raw/rule-set/geoip-cn.srs",
         "download_detour": "direct"
       },
       {
         "tag": "geosite-geolocation-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-cn.srs",
+        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-cn.srs",
         "download_detour": "direct"
       },
       {
@@ -258,14 +262,14 @@
         "tag": "geosite-geolocation-!cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-!cn.srs",
+        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-!cn.srs",
         "download_detour": "direct"
       },
       {
         "tag": "openai",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/Toperlock/sing-box-geosite/raw/refs/heads/main/rule/OpenAI.srs",
+        "url": "https://ghfast.top/https://github.com/Toperlock/sing-box-geosite/raw/refs/heads/main/rule/OpenAI.srs",
         "download_detour": "direct"
       },
       {
@@ -393,8 +397,10 @@
   "inbounds": [
     {
       "type": "tun",
-      "inet4_address": "172.19.0.0/30",
-      "inet6_address": "fdfe:dcba:9876::0/126",
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
       "stack": "system",
       "auto_route": true,
       "strict_route": false,
