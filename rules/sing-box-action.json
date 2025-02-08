@@ -221,21 +221,21 @@
         "tag": "wechat",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/WeChat.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/WeChat.srs",
         "download_detour": "direct"
       },
       {
         "tag": "geoip-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/SagerNet/sing-geoip/raw/rule-set/geoip-cn.srs",
+        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geoip/raw/rule-set/geoip-cn.srs",
         "download_detour": "direct"
       },
       {
         "tag": "geosite-geolocation-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-cn.srs",
+        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-cn.srs",
         "download_detour": "direct"
       },
       {
@@ -262,14 +262,14 @@
         "tag": "geosite-geolocation-!cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-!cn.srs",
+        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-!cn.srs",
         "download_detour": "direct"
       },
       {
         "tag": "openai",
         "type": "remote",
         "format": "binary",
-        "url": "https://mirror.ghproxy.com/https://github.com/Toperlock/sing-box-geosite/raw/refs/heads/main/rule/OpenAI.srs",
+        "url": "https://ghfast.top/https://github.com/Toperlock/sing-box-geosite/raw/refs/heads/main/rule/OpenAI.srs",
         "download_detour": "direct"
       },
       {
