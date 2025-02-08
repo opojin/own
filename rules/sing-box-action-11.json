@@ -89,9 +89,6 @@
   "route": {
     "rules": [
       {
-        "action": "sniff"
-      },
-      {
         "type": "logical",
         "mode": "or",
         "rules": [
