@@ -28,11 +28,13 @@
     "rules": [
       {
         "outbound": "any",
-        "server": "tx",
-        "disable_cache": true
+        "server": "tx"
       },
       {
-        "rule_set": "广告拦截",
+        "rule_set": [
+          "AWAvenue-Ads",
+          "广告拦截"
+        ],
         "action": "route-options",
         "server": "nxdomain",
         "disable_cache": true
@@ -73,24 +75,15 @@
         "server": "tx"
       },
       {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "geosite-geolocation-!cn",
-            "invert": true
-          },
-          {
-            "rule_set": "geoip-cn"
-          }
+        "query_type": [
+          "A",
+          "AAAA"
         ],
         "action": "route",
-        "server": "google",
-        "client_subnet": "114.114.114.114"
+        "server": "fakeip"
       }
     ],
-    "final": "google",
-    "strategy": "ipv4_only",
+    "strategy": "prefer_ipv4",
     "independent_cache": true
   },
   "route": {
@@ -129,7 +122,10 @@
         "action": "reject"
       },
       {
-        "rule_set": "广告拦截",
+        "rule_set": [
+          "AWAvenue-Ads",
+          "广告拦截"
+        ],
         "action": "reject"
       },
       {
@@ -204,6 +200,14 @@
         "url": "https://github.com/Toperlock/sing-box-geosite/raw/main/rule/adrules_domainset.srs",
         "type": "remote",
         "format": "binary",
+        "download_detour": "proxy",
+        "update_interval": "24h"
+      },
+      {
+        "tag": "AWAvenue-Ads",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
         "download_detour": "proxy",
         "update_interval": "24h"
       },
@@ -393,8 +397,10 @@
   "inbounds": [
     {
       "type": "tun",
-      "inet4_address": "172.19.0.0/30",
-      "inet6_address": "fdfe:dcba:9876::0/126",
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
       "stack": "system",
       "auto_route": true,
       "strict_route": false,
