@@ -32,6 +32,7 @@
       },
       {
         "rule_set": [
+          "AWAvenue-Ads",
           "广告拦截"
         ],
         "action": "route",
@@ -54,15 +55,11 @@
         "server": "google"
       },
       {
-        "query_type": [
-          "A",
-          "AAAA"
-        ],
         "rule_set": [
           "geosite-geolocation-!cn",
           "emby"
         ],
-        "action": "route-options",
+        "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
       },
@@ -75,20 +72,12 @@
         "server": "tx"
       },
       {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "geosite-geolocation-!cn",
-            "invert": true
-          },
-          {
-            "rule_set": "geoip-cn"
-          }
+        "query_type": [
+          "A",
+          "AAAA"
         ],
-        "action": "route-options",
-        "server": "google",
-        "client_subnet": "114.114.114.114"
+        "action": "route",
+        "server": "fakeip"
       }
     ],
     "strategy": "prefer_ipv4",
@@ -202,7 +191,7 @@
     "rule_set": [
       {
         "tag": "广告拦截",
-        "url": "https://github.com/Toperlock/sing-box-geosite/raw/main/rule/adrules_domainset.srs",
+        "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
         "type": "remote",
         "format": "binary",
         "download_detour": "proxy",
