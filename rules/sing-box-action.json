@@ -60,7 +60,8 @@
           "AAAA"
         ],
         "rule_set": [
-          "geosite-geolocation-!cn"
+          "geosite-geolocation-!cn",
+          "emby"
         ],
         "action": "route-options",
         "server": "fakeip",
