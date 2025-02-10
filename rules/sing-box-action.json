@@ -32,7 +32,6 @@
       },
       {
         "rule_set": [
-          "AWAvenue-Ads",
           "广告拦截"
         ],
         "action": "route",
