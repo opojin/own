@@ -63,7 +63,7 @@
           "geosite-geolocation-!cn",
           "emby"
         ],
-        "action": "route-options",
+        "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
       },
