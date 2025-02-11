@@ -22,7 +22,7 @@
       },
       {
         "tag": "nxdomain",
-        "address": "rcode://success"
+        "address": "rcode://refused"
       }
     ],
     "rules": [
@@ -35,23 +35,19 @@
           "AWAvenue-Ads",
           "广告拦截"
         ],
-        "action": "route",
         "server": "nxdomain",
         "disable_cache": true
       },
       {
         "clash_mode": "Direct",
-        "action": "route",
         "server": "tx"
       },
       {
         "clash_mode": "Global",
-        "action": "route",
         "server": "fakeip"
       },
       {
         "rule_set": "强制代理-域名",
-        "action": "route",
         "server": "google"
       },
       {
@@ -59,32 +55,65 @@
           "geosite-geolocation-!cn",
           "emby"
         ],
-        "action": "route",
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
         "server": "fakeip",
         "rewrite_ttl": 1
+      },
+      {
+        "rule_set": [
+          "geosite-geolocation-!cn"
+        ],
+        "query_type": [
+          "CNAME"
+        ],
+        "server": "google"
       },
       {
         "rule_set": [
           "geosite-geolocation-cn",
           "wechat"
         ],
-        "action": "route",
         "server": "tx"
       },
       {
-        "query_type": [
-          "A",
-          "AAAA"
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "geosite-geolocation-!cn",
+            "invert": true
+          },
+          {
+            "rule_set": "geoip-cn"
+          }
         ],
+        "server": "google",
+        "client_subnet": "114.114.114.114"
+      },
+      {
+        "query_type": [
+            "A",
+            "AAAA",
+            "CNAME"
+        ],
+        "invert": true,
+        "server": "nxdomain",
         "action": "route",
-        "server": "fakeip"
+        "disable_cache": true
       }
     ],
-    "strategy": "ipv4_only",
+    "strategy": "prefer_ipv4",
     "independent_cache": true
   },
   "route": {
     "rules": [
+      {
+        "inbound": ["tun-in", "mixed-in"],
+        "action": "sniff"
+      },
       {
         "type": "logical",
         "mode": "or",
@@ -121,10 +150,6 @@
           "广告拦截"
         ],
         "action": "reject"
-      },
-      {
-        "ip_is_private": true,
-        "outbound": "direct"
       },
       {
         "clash_mode": "Direct",
@@ -174,6 +199,15 @@
         "outbound": "direct"
       },
       {
+        "domain": [
+          "clash.razord.top",
+          "yacd.metacubex.one",
+          "yacd.haishan.me",
+          "d.metacubex.one"
+        ],
+        "outbound": "direct"
+      },
+      {
         "rule_set": [
           "geoip-cn",
           "wechat",
@@ -186,6 +220,10 @@
         "rule_set": "geosite-geolocation-!cn",
         "action": "route",
         "outbound": "proxy"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
       }
     ],
     "rule_set": [
@@ -390,6 +428,7 @@
   ],
   "inbounds": [
     {
+      "tag": "tun-in",
       "type": "tun",
       "address": [
         "172.19.0.1/30",
@@ -398,7 +437,6 @@
       "stack": "system",
       "auto_route": true,
       "strict_route": true,
-      "sniff": true,
       "platform": {
         "http_proxy": {
           "enabled": true,
@@ -408,10 +446,10 @@
       }
     },
     {
+      "tag": "mixed-in",
       "type": "mixed",
       "listen": "127.0.0.1",
-      "listen_port": 7890,
-      "sniff": true
+      "listen_port": 7890
     }
   ],
   "experimental": {
@@ -428,7 +466,7 @@
   },
   "log": {
     "disabled": false,
-    "level": "info",
+    "level": "debug",
     "output": "box.log",
     "timestamp": true
   }
