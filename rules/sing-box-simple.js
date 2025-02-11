@@ -20,7 +20,7 @@ config.outbounds.map(i => {
     i.outbounds.push(...getTags(proxies))
   }
   if (['sg'].includes(i.tag)) {
-    i.outbounds.push(...getTags(proxies, /^(?!.*(?:us)).*(新|claw|sg|singapore|🇸🇬)/i))
+    i.outbounds.push(...getTags(proxies, /^(?!.*(?:us)).*(新|claw|vkvm|sg|singapore|🇸🇬)/i))
   }
   if (['openai'].includes(i.tag)) {
     i.outbounds.push(...getTags(proxies, /美|rack|dmit|claw|台|TW|unitedstates|united states|德|uk|法|tech|🇺🇸/i))
