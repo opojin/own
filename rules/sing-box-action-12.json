@@ -53,6 +53,7 @@
       {
         "rule_set": [
           "geosite-geolocation-!cn",
+          "emby-Repcz",
           "emby"
         ],
         "query_type": [
@@ -162,7 +163,10 @@
         "outbound": "GLOBAL"
       },
       {
-        "rule_set": "emby",
+        "rule_set": [
+          "emby",
+          "emby-Repcz"
+        ],
         "action": "route",
         "outbound": "emby"
       },
@@ -172,7 +176,10 @@
         "outbound": "youtube"
       },
       {
-        "rule_set": "openai",
+        "rule_set": [
+          "openai",
+          "AI"
+        ],
         "action": "route",
         "outbound": "openai"
       },
@@ -250,6 +257,13 @@
         "path": "/storage/emulated/0/Android/data/io.nekohasekai.sfa/files/RuleProviders/emby.json"
       },
       {
+        "tag": "emby-Repcz",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/Emby.srs",
+        "download_detour": "direct"
+      },
+      {
         "tag": "wechat",
         "type": "remote",
         "format": "binary",
@@ -305,6 +319,13 @@
         "download_detour": "direct"
       },
       {
+        "tag": "AI",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://git.repcz.link/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-chat-!cn.srs",
+        "download_detour": "direct"
+      },
+      {
         "tag": "geoip-telegram",
         "type": "remote",
         "format": "binary",
@@ -351,7 +372,8 @@
         "us",
         "all"
       ],
-      "default": "us"
+      "default": "us",
+      "interrupt_exist_connections": true
     },
     {
       "tag": "youtube",
@@ -361,7 +383,8 @@
         "us",
         "all"
       ],
-      "default": "us"
+      "default": "us",
+      "interrupt_exist_connections": true
     },
     {
       "tag": "telegram",
@@ -371,7 +394,8 @@
         "us",
         "all"
       ],
-      "default": "sg"
+      "default": "sg",
+      "interrupt_exist_connections": true
     },
     {
       "tag": "emby",
@@ -382,27 +406,32 @@
         "us",
         "all"
       ],
-      "default": "all"
+      "default": "all",
+      "interrupt_exist_connections": true
     },
     {
       "tag": "openai",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "all",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "us",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "sg",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "GLOBAL",
