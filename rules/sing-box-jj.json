@@ -163,6 +163,12 @@
         "outbound": "GLOBAL"
       },
       {
+        "domain_suffix": [
+          "mix.1steam.one"
+        ],
+        "outbound": "telegram"
+      },
+      {
         "rule_set": [
           "emby",
           "emby-Repcz"
