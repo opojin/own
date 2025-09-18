@@ -35,6 +35,16 @@
         "action": "reject"
       },
       {
+        "rule_set": [
+          "cn_domain",
+          "PayPal",
+          "Epic",
+          "ABC"
+        ],
+        "action": "route",
+        "server": "ali"
+      },
+      {
         "query_type": [
           "A",
           "AAAA"
@@ -44,9 +54,19 @@
         "rewrite_ttl": 1
       },
       {
-        "rule_set": "cn_domain",
-        "action": "route",
-        "server": "ali"
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "proxy_domain",
+            "invert": true
+          },
+          {
+            "rule_set": "cn_ip"
+          }
+        ],
+        "server": "google",
+        "client_subnet": "114.114.114.114/24"
       }
     ],
     "final": "google",
@@ -116,6 +136,12 @@
         ],
         "action": "route",
         "outbound": "🐟漏网之鱼"
+      },
+      {
+        "protocol": "quic",
+        "network": "udp",
+        "rule_set": "youtube_domain",
+        "action": "reject"
       },
       {
         "rule_set": "youtube_domain",
@@ -216,7 +242,7 @@
         "download_detour": "direct"
       },
       {
-        "tag": "Epic",
+        "tag": "PayPal",
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/Epic/Epic.srs",
