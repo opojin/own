@@ -35,6 +35,16 @@
         "action": "reject"
       },
       {
+        "rule_set": [
+          "cn_domain",
+          "PayPal",
+          "Epic",
+          "ABC"
+        ],
+        "action": "route",
+        "server": "ali"
+      },
+      {
         "query_type": [
           "A",
           "AAAA"
@@ -44,13 +54,24 @@
         "rewrite_ttl": 1
       },
       {
-        "rule_set": "cn_domain",
-        "action": "route",
-        "server": "ali"
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "proxy_domain",
+            "invert": true
+          },
+          {
+            "rule_set": "cn_ip"
+          }
+        ],
+        "server": "google",
+        "client_subnet": "114.114.114.114/24"
       }
     ],
     "final": "google",
-    "independent_cache": true
+    "independent_cache": true,
+    "strategy": "prefer_ipv4"
   },
   "route": {
     "default_domain_resolver": {
@@ -116,6 +137,12 @@
         ],
         "action": "route",
         "outbound": "🐟漏网之鱼"
+      },
+      {
+        "protocol": "quic",
+        "network": "udp",
+        "rule_set": "youtube_domain",
+        "action": "reject"
       },
       {
         "rule_set": "youtube_domain",
@@ -329,6 +356,7 @@
         "🚀dialer",
         "📺emby",
         "🤖OpenAI",
+        "rack免流",
         "direct"
       ],
       "default": "🎥手动切换"
@@ -417,6 +445,36 @@
     {
       "tag": "block",
       "type": "block"
+    },
+    {
+      "tag": "rack免流",
+      "type": "shadowsocks",
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+      "detour": "rack免流_shadowtls",
+      "tcp_fast_open": true,
+      "tcp_multi_path": true,
+      "multiplex": {
+        "enabled": true
+      }
+    },
+    {
+      "tag": "rack免流_shadowtls",
+      "type": "shadowtls",
+      "server": "rn.315114.xyz",
+      "server_port": 443,
+      "version": 3,
+      "password": "jr6hyvHZvgygjTng5/HQ/A==",
+      "tls": {
+        "enabled": true,
+        "server_name": "tjtn.pan.wo.cn",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "tcp_fast_open": true,
+      "tcp_multi_path": true
     }
   ],
   "inbounds": [
