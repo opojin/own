@@ -70,7 +70,8 @@
       }
     ],
     "final": "google",
-    "independent_cache": true
+    "independent_cache": true,
+    "strategy": "prefer_ipv4"
   },
   "route": {
     "default_domain_resolver": {
@@ -242,7 +243,7 @@
         "download_detour": "direct"
       },
       {
-        "tag": "PayPal",
+        "tag": "Epic",
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/Epic/Epic.srs",
@@ -355,6 +356,9 @@
         "🚀dialer",
         "📺emby",
         "🤖OpenAI",
+        "rack免流",
+        "rare免流",
+        "dmit免流",
         "direct"
       ],
       "default": "🎥手动切换"
@@ -362,7 +366,12 @@
     {
       "tag": "🎥手动切换",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [
+        "rack免流",
+        "rare免流",
+        "dmit免流"
+      ],
+      "default": "dmit免流"
     },
     {
       "tag": "🌍YouTube",
@@ -443,6 +452,96 @@
     {
       "tag": "block",
       "type": "block"
+    },
+    {
+      "tag": "rack免流",
+      "type": "shadowsocks",
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+      "detour": "rack免流_shadowtls",
+      "tcp_fast_open": true,
+      "tcp_multi_path": true,
+      "multiplex": {
+        "enabled": true
+      }
+    },
+    {
+      "tag": "rack免流_shadowtls",
+      "type": "shadowtls",
+      "server": "rn.315114.xyz",
+      "server_port": 443,
+      "version": 3,
+      "password": "jr6hyvHZvgygjTng5/HQ/A==",
+      "tls": {
+        "enabled": true,
+        "server_name": "tjtn.pan.wo.cn",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "tcp_fast_open": true,
+      "tcp_multi_path": true
+    },
+    {
+      "tag": "rare免流",
+      "type": "shadowsocks",
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+      "detour": "rare免流_shadowtls",
+      "tcp_fast_open": true,
+      "tcp_multi_path": true,
+      "multiplex": {
+        "enabled": true
+      }
+    },
+    {
+      "tag": "rare免流_shadowtls",
+      "type": "shadowtls",
+      "server": "de.315114.xyz",
+      "server_port": 443,
+      "version": 3,
+      "password": "jr6hyvHZvgygjTng5/HQ/A==",
+      "tls": {
+        "enabled": true,
+        "server_name": "tjtn.pan.wo.cn",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "tcp_fast_open": true,
+      "tcp_multi_path": true
+    },
+    {
+      "tag": "dmit免流",
+      "type": "shadowsocks",
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+      "detour": "dmit免流_shadowtls",
+      "tcp_fast_open": true,
+      "tcp_multi_path": true,
+      "multiplex": {
+        "enabled": true
+      }
+    },
+    {
+      "tag": "dmit免流_shadowtls",
+      "type": "shadowtls",
+      "server": "dom.315114.xyz",
+      "server_port": 443,
+      "version": 3,
+      "password": "jr6hyvHZvgygjTng5/HQ/A==",
+      "tls": {
+        "enabled": true,
+        "server_name": "tjtn.pan.wo.cn",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "tcp_fast_open": true,
+      "tcp_multi_path": true
     }
   ],
   "inbounds": [
