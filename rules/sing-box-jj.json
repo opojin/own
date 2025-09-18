@@ -93,6 +93,13 @@
         "outbound": "🍃广告拦截"
       },
       {
+        "domain": [
+          "msmp.abchina.com.cn"
+        ],
+        "action": "route",
+        "outbound": "🍃广告拦截"
+      },
+      {
         "clash_mode": "Global",
         "action": "route",
         "outbound": "GLOBAL"
@@ -123,6 +130,7 @@
       {
         "rule_set": [
           "telegram_ip",
+          "Spotify",
           "telegram_domain"
         ],
         "action": "route",
@@ -168,6 +176,16 @@
           "yacd.haishan.me",
           "d.metacubex.one"
         ],
+        "action": "route",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": [
+          "PayPal",
+          "Epic",
+          "ABC"
+        ],
+        "action": "route",
         "outbound": "direct"
       },
       {
@@ -188,6 +206,27 @@
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "PayPal",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/PayPal/PayPal.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "Epic",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/Epic/Epic.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "ABC",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/ABC/ABC.srs",
         "download_detour": "direct"
       },
       {
@@ -218,7 +257,13 @@
         "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/google.srs",
         "download_detour": "direct"
       },
-
+      {
+        "tag": "Spotify",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/refs/heads/main/rule/Spotify/Spotify.srs",
+        "download_detour": "direct"
+      },
       {
         "tag": "netflix_ip",
         "type": "remote",
