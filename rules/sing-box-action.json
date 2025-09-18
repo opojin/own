@@ -1,118 +1,71 @@
 {
   "dns": {
-    "fakeip": {
-      "enabled": true,
-      "inet4_range": "198.18.0.0/15",
-      "inet6_range": "fc00::/18"
-    },
     "servers": [
       {
         "tag": "google",
-        "address": "https://8.8.8.8/dns-query",
-        "detour": "proxy"
+        "type": "https",
+        "server": "8.8.8.8",
+        "detour": "🐟漏网之鱼"
       },
       {
-        "tag": "tx",
-        "address": "https://120.53.53.53/dns-query",
-        "detour": "direct"
+        "tag": "ali",
+        "type": "https",
+        "server": "223.5.5.5"
       },
       {
         "tag": "fakeip",
-        "address": "fakeip"
-      },
-      {
-        "tag": "nxdomain",
-        "address": "rcode://refused"
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/15",
+        "inet6_range": "fc00::/18"
       }
     ],
     "rules": [
       {
-        "outbound": "any",
-        "server": "tx"
-      },
-      {
-        "rule_set": [
-          "AWAvenue-Ads",
-          "广告拦截"
-        ],
-        "server": "nxdomain",
-        "disable_cache": true
-      },
-      {
         "clash_mode": "Direct",
-        "server": "tx"
+        "action": "route",
+        "server": "ali"
       },
       {
         "clash_mode": "Global",
+        "action": "route",
         "server": "fakeip"
       },
       {
-        "rule_set": "强制代理-域名",
-        "server": "google"
+        "query_type": "HTTPS",
+        "action": "reject"
       },
       {
-        "rule_set": [
-          "geosite-geolocation-!cn",
-          "emby"
-        ],
         "query_type": [
           "A",
           "AAAA"
         ],
+        "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
       },
       {
-        "rule_set": [
-          "geosite-geolocation-!cn"
-        ],
-        "query_type": [
-          "CNAME"
-        ],
-        "server": "google"
-      },
-      {
-        "rule_set": [
-          "geosite-geolocation-cn",
-          "wechat"
-        ],
-        "server": "tx"
-      },
-      {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "geosite-geolocation-!cn",
-            "invert": true
-          },
-          {
-            "rule_set": "geoip-cn"
-          }
-        ],
-        "server": "google",
-        "client_subnet": "114.114.114.114"
-      },
-      {
-        "query_type": [
-            "A",
-            "AAAA",
-            "CNAME"
-        ],
-        "invert": true,
-        "server": "nxdomain",
+        "rule_set": "cn_domain",
         "action": "route",
-        "disable_cache": true
+        "server": "ali"
       }
     ],
-    "strategy": "prefer_ipv4",
+    "final": "google",
     "independent_cache": true
   },
   "route": {
+    "default_domain_resolver": {
+      "server": "ali"
+    },
     "rules": [
       {
-        "inbound": ["tun-in", "mixed-in"],
-        "action": "sniff"
+        "action": "sniff",
+        "sniffer": [
+          "http",
+          "tls",
+          "quic",
+          "dns"
+        ],
+        "timeout": "500ms"
       },
       {
         "type": "logical",
@@ -128,33 +81,16 @@
         "action": "hijack-dns"
       },
       {
-        "type": "logical",
-        "mode": "or",
-        "rules": [
-          {
-            "port": 853
-          },
-          {
-            "network": "udp",
-            "port": 443
-          },
-          {
-            "protocol": "stun"
-          }
-        ],
-        "action": "reject"
+        "ip_is_private": true,
+        "action": "route",
+        "outbound": "direct"
       },
       {
         "rule_set": [
-          "AWAvenue-Ads",
           "广告拦截"
         ],
-        "action": "reject"
-      },
-      {
-        "clash_mode": "Direct",
         "action": "route",
-        "outbound": "direct"
+        "outbound": "🍃广告拦截"
       },
       {
         "clash_mode": "Global",
@@ -162,36 +98,63 @@
         "outbound": "GLOBAL"
       },
       {
-        "rule_set": "emby",
+        "clash_mode": "Direct",
         "action": "route",
-        "outbound": "emby"
-      },
-      {
-        "rule_set": "youtube",
-        "action": "route",
-        "outbound": "youtube"
-      },
-      {
-        "rule_set": "openai",
-        "action": "route",
-        "outbound": "openai"
+        "outbound": "direct"
       },
       {
         "rule_set": [
-          "强制代理-域名",
-          "geoip-google",
-          "geosite-google"
+          "netflix_ip",
+          "netflix_domain"
         ],
         "action": "route",
-        "outbound": "google"
+        "outbound": "🐟漏网之鱼"
+      },
+      {
+        "rule_set": "youtube_domain",
+        "action": "route",
+        "outbound": "🌍YouTube"
+      },
+      {
+        "rule_set": "openai_domain",
+        "action": "route",
+        "outbound": "🤖OpenAI"
       },
       {
         "rule_set": [
-          "geoip-telegram",
-          "geosite-telegram"
+          "telegram_ip",
+          "telegram_domain"
         ],
         "action": "route",
-        "outbound": "telegram"
+        "outbound": "📱TG"
+      },
+      {
+        "rule_set": [
+          "google_ip",
+          "google_domain"
+        ],
+        "action": "route",
+        "outbound": "🎯Europe"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "rule_set": "proxy_domain"
+          },
+          {
+            "invert": true,
+            "rule_set": [
+              "cn_domain",
+              "google_domain",
+              "telegram_domain",
+              "netflix_domain"
+            ]
+          }
+        ],
+        "action": "route",
+        "outbound": "🐟漏网之鱼"
       },
       {
         "domain_suffix": "eslink.cc",
@@ -208,235 +171,218 @@
         "outbound": "direct"
       },
       {
+        "action": "resolve"
+      },
+      {
         "rule_set": [
-          "geoip-cn",
-          "wechat",
-          "geosite-geolocation-cn"
+          "cn_ip",
+          "cn_domain"
         ],
         "action": "route",
-        "outbound": "direct"
-      },
-      {
-        "rule_set": "geosite-geolocation-!cn",
-        "action": "route",
-        "outbound": "proxy"
-      },
-      {
-        "ip_is_private": true,
         "outbound": "direct"
       }
     ],
     "rule_set": [
       {
         "tag": "广告拦截",
-        "url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
         "type": "remote",
         "format": "binary",
-        "download_detour": "proxy",
-        "update_interval": "24h"
-      },
-      {
-        "tag": "AWAvenue-Ads",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.srs",
-        "download_detour": "proxy",
-        "update_interval": "24h"
-      },
-      {
-        "tag": "emby",
-        "type": "local",
-        "format": "source",
-        "path": "/storage/emulated/0/Android/data/io.nekohasekai.sfa/files/RuleProviders/emby.json"
-      },
-      {
-        "tag": "wechat",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/Toperlock/sing-box-geosite/main/rule/WeChat.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geoip-cn",
+        "tag": "cn_ip",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geoip/raw/rule-set/geoip-cn.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-cn",
+        "tag": "cn_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-cn.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geoip-google",
+        "tag": "google_ip",
         "type": "remote",
         "format": "binary",
-        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/google.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/google.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-google",
+        "tag": "google_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/google.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/google.srs",
+        "download_detour": "direct"
+      },
+
+      {
+        "tag": "netflix_ip",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/netflix.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "强制代理-域名",
-        "path": "/storage/emulated/0/Android/data/io.nekohasekai.sfa/files/RuleProviders/强制代理-域名.json",
-        "type": "local",
-        "format": "source"
-      },
-      {
-        "tag": "geosite-geolocation-!cn",
+        "tag": "netflix_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://github.com/SagerNet/sing-geosite/raw/rule-set/geosite-geolocation-!cn.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/netflix.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "openai",
+        "tag": "openai_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://ghfast.top/https://github.com/Toperlock/sing-box-geosite/raw/refs/heads/main/rule/OpenAI.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/openai.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geoip-telegram",
+        "tag": "proxy_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/telegram.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-telegram",
+        "tag": "telegram_ip",
         "type": "remote",
         "format": "binary",
-        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/telegram.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/telegram.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "youtube",
+        "tag": "telegram_domain",
         "type": "remote",
         "format": "binary",
-        "url": "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/youtube.srs",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/telegram.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "youtube_domain",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/youtube.srs",
         "download_detour": "direct"
       }
     ],
-    "final": "proxy",
+    "final": "🐟漏网之鱼",
     "auto_detect_interface": true
   },
   "outbounds": [
     {
-      "tag": "proxy",
+      "tag": "🐟漏网之鱼",
       "type": "selector",
       "outbounds": [
-        "google",
-        "youtube",
-        "telegram",
-        "openai",
-        "all",
+        "🎥手动切换",
+        "🌍YouTube",
+        "🎯Europe",
+        "📱TG",
+        "🚀dialer",
+        "📺emby",
+        "🤖OpenAI",
         "direct"
       ],
-      "default": "all",
-      "interrupt_exist_connections": true
+      "default": "🎥手动切换"
     },
     {
-      "tag": "google",
-      "type": "selector",
-      "outbounds": [
-        "us",
-        "all"
-      ],
-      "default": "us"
-    },
-    {
-      "tag": "youtube",
-      "type": "selector",
-      "outbounds": [
-        "sg",
-        "us",
-        "all"
-      ],
-      "default": "us"
-    },
-    {
-      "tag": "telegram",
-      "type": "selector",
-      "outbounds": [
-        "sg",
-        "us",
-        "all"
-      ],
-      "default": "sg"
-    },
-    {
-      "tag": "emby",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "sg",
-        "us",
-        "all"
-      ],
-      "default": "all"
-    },
-    {
-      "tag": "openai",
+      "tag": "🎥手动切换",
       "type": "selector",
       "outbounds": []
     },
     {
-      "tag": "all",
+      "tag": "🌍YouTube",
+      "type": "selector",
+      "outbounds": [
+        "🎥手动切换"
+      ],
+      "default": "🎥手动切换"
+    },
+    {
+      "tag": "🎯Europe",
+      "type": "selector",
+      "outbounds": [
+        "🎥手动切换"
+      ],
+      "default": "🎥手动切换"
+    },
+    {
+      "tag": "📱TG",
+      "type": "selector",
+      "outbounds": [
+        "🎥手动切换"
+      ],
+      "default": "🎥手动切换"
+    },
+    {
+      "tag": "🚀dialer",
       "type": "selector",
       "outbounds": []
     },
     {
-      "tag": "us",
+      "tag": "📺emby",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [
+        "🎥手动切换",
+        "direct"
+      ],
+      "default": "🎥手动切换"
     },
     {
-      "tag": "sg",
+      "tag": "🤖OpenAI",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [
+        "🎥手动切换"
+      ],
+      "default": "🎥手动切换"
     },
     {
       "tag": "GLOBAL",
       "type": "selector",
       "outbounds": [
         "direct",
-        "proxy",
-        "youtube",
-        "google",
-        "telegram",
-        "emby",
-        "openai",
-        "all",
-        "us",
-        "sg"
+        "🐟漏网之鱼",
+        "🎥手动切换",
+        "🌍YouTube",
+        "🎯Europe",
+        "📱TG",
+        "🚀dialer",
+        "📺emby",
+        "🤖OpenAI",
+        "🍃广告拦截"
       ],
       "default": "direct"
     },
     {
+      "tag": "🍃广告拦截",
+      "type": "selector",
+      "outbounds": [
+        "direct",
+        "block"
+      ],
+      "default": "block"
+    },
+    {
       "tag": "direct",
       "type": "direct"
+    },
+    {
+      "tag": "block",
+      "type": "block"
     }
   ],
   "inbounds": [
     {
-      "tag": "tun-in",
       "type": "tun",
       "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
+        "172.19.0.0/30",
+        "fdfe:dcba:9876::0/126"
       ],
-      "stack": "system",
+      "stack": "mixed",
       "auto_route": true,
-      "strict_route": true,
       "platform": {
         "http_proxy": {
           "enabled": true,
@@ -446,7 +392,6 @@
       }
     },
     {
-      "tag": "mixed-in",
       "type": "mixed",
       "listen": "127.0.0.1",
       "listen_port": 7890
@@ -456,8 +401,8 @@
     "clash_api": {
       "external_controller": "127.0.0.1:9090",
       "external_ui": "ui",
-      "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
-      "external_ui_download_detour": "proxy"
+      "external_ui_download_url": "https://ghfast.top/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "direct"
     },
     "cache_file": {
       "enabled": true,
@@ -466,8 +411,7 @@
   },
   "log": {
     "disabled": false,
-    "level": "debug",
-    "output": "box.log",
+    "level": "info",
     "timestamp": true
   }
 }
