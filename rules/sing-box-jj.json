@@ -36,7 +36,13 @@
       },
       {
         "rule_set": [
-          "cn_domain",
+          "广告拦截",
+          "AWAvenue-Ads"
+        ],
+        "action": "reject"
+      },
+      {
+        "rule_set": [
           "PayPal",
           "Epic",
           "ABC"
@@ -52,6 +58,13 @@
         "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
+      },
+      {
+        "rule_set": [
+          "cn_domain"
+        ],
+        "action": "route",
+        "server": "ali"
       },
       {
         "type": "logical",
@@ -108,7 +121,8 @@
       },
       {
         "rule_set": [
-          "广告拦截"
+          "广告拦截",
+          "AWAvenue-Ads"
         ],
         "action": "route",
         "outbound": "🍃广告拦截"
@@ -153,6 +167,11 @@
         "rule_set": "openai_domain",
         "action": "route",
         "outbound": "🤖OpenAI"
+      },
+      {
+        "rule_set": "Emby",
+        "action": "route",
+        "outbound": "📺emby"
       },
       {
         "rule_set": [
@@ -210,18 +229,19 @@
         "rule_set": [
           "PayPal",
           "Epic",
-          "ABC"
+          "ABC",
+          "cn_domain"
         ],
         "action": "route",
         "outbound": "direct"
       },
       {
-        "action": "resolve"
+        "action": "resolve",
+        "match_only": true
       },
       {
         "rule_set": [
-          "cn_ip",
-          "cn_domain"
+          "cn_ip"
         ],
         "action": "route",
         "outbound": "direct"
@@ -233,6 +253,20 @@
         "type": "remote",
         "format": "binary",
         "url": "https://ghfast.top/https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "AWAvenue-Ads",
+        "type": "remote",
+        "format": "source",
+        "url": "https://github.boki.moe/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "Emby",
+        "type": "remote",
+        "format": "source",
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/opojin/own/refs/heads/main/rules/Emby.json",
         "download_detour": "direct"
       },
       {
@@ -357,6 +391,10 @@
         "📺emby",
         "🤖OpenAI",
         "rack免流",
+        "rare免流",
+        "dmit免流",
+        "rare-anytls链式",
+        "rack-anytls链式",
         "direct"
       ],
       "default": "🎥手动切换"
@@ -364,13 +402,23 @@
     {
       "tag": "🎥手动切换",
       "type": "selector",
-      "outbounds": []
+      "outbounds": [
+        "rack免流",
+        "rare免流",
+        "dmit免流",
+        "rare-anytls链式",
+        "rack-anytls链式"
+      ],
+      "default": "dmit免流"
     },
     {
       "tag": "🌍YouTube",
       "type": "selector",
       "outbounds": [
-        "🎥手动切换"
+        "🎥手动切换",
+        "rack免流",
+        "rare免流",
+        "dmit免流"
       ],
       "default": "🎥手动切换"
     },
@@ -378,7 +426,10 @@
       "tag": "🎯Europe",
       "type": "selector",
       "outbounds": [
-        "🎥手动切换"
+        "🎥手动切换",
+        "rack免流",
+        "rare免流",
+        "dmit免流"
       ],
       "default": "🎥手动切换"
     },
@@ -386,7 +437,10 @@
       "tag": "📱TG",
       "type": "selector",
       "outbounds": [
-        "🎥手动切换"
+        "🎥手动切换",
+        "rack免流",
+        "rare免流",
+        "dmit免流"
       ],
       "default": "🎥手动切换"
     },
@@ -475,6 +529,104 @@
       },
       "tcp_fast_open": true,
       "tcp_multi_path": true
+    },
+    {
+      "tag": "rare免流",
+      "type": "shadowsocks",
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+      "detour": "rare免流_shadowtls",
+      "tcp_fast_open": true,
+      "tcp_multi_path": true,
+      "multiplex": {
+        "enabled": true
+      }
+    },
+    {
+      "tag": "rare免流_shadowtls",
+      "type": "shadowtls",
+      "server": "de.315114.xyz",
+      "server_port": 443,
+      "version": 3,
+      "password": "jr6hyvHZvgygjTng5/HQ/A==",
+      "tls": {
+        "enabled": true,
+        "server_name": "tjtn.pan.wo.cn",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "tcp_fast_open": true,
+      "tcp_multi_path": true
+    },
+    {
+      "tag": "dmit免流",
+      "type": "shadowsocks",
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+      "detour": "dmit免流_shadowtls",
+      "tcp_fast_open": true,
+      "tcp_multi_path": true,
+      "multiplex": {
+        "enabled": true
+      }
+    },
+    {
+      "tag": "dmit免流_shadowtls",
+      "type": "shadowtls",
+      "server": "dom.315114.xyz",
+      "server_port": 443,
+      "version": 3,
+      "password": "jr6hyvHZvgygjTng5/HQ/A==",
+      "tls": {
+        "enabled": true,
+        "server_name": "tjtn.pan.wo.cn",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "tcp_fast_open": true,
+      "tcp_multi_path": true
+    },
+    {
+      "name": "rack-anytls链式",
+      "type": "anytls",
+      "server": "rn.315114.xyz",
+      "port": 8443,
+      "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
+      "udp": true,
+      "idle-session-check-interval": 30,
+      "idle-session-timeout": 30,
+      "min-idle-session": 0,
+      "client-fingerprint": "chrome",
+      "sni": "rn.315114.xyz",
+      "alpn": [
+        "h2",
+        "http/1.1"
+      ],
+      "skip-cert-verify": false,
+      "detour": "🚀dialer"
+    },
+    {
+      "name": "rare-anytls链式",
+      "type": "anytls",
+      "server": "de.315114.xyz",
+      "port": 8443,
+      "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
+      "udp": true,
+      "idle-session-check-interval": 30,
+      "idle-session-timeout": 30,
+      "min-idle-session": 0,
+      "client-fingerprint": "chrome",
+      "sni": "de.315114.xyz",
+      "alpn": [
+        "h2",
+        "http/1.1"
+      ],
+      "skip-cert-verify": false,
+      "detour": "🚀dialer"
     }
   ],
   "inbounds": [
