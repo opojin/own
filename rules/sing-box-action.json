@@ -393,6 +393,8 @@
         "rack免流",
         "rare免流",
         "dmit免流",
+        "rare-anytls链式",
+        "rack-anytls链式",
         "direct"
       ],
       "default": "🎥手动切换"
@@ -403,7 +405,9 @@
       "outbounds": [
         "rack免流",
         "rare免流",
-        "dmit免流"
+        "dmit免流",
+        "rare-anytls链式",
+        "rack-anytls链式"
       ],
       "default": "dmit免流"
     },
@@ -585,6 +589,44 @@
       },
       "tcp_fast_open": true,
       "tcp_multi_path": true
+    },
+    {
+      "name": "rack-anytls链式",
+      "type": "anytls",
+      "server": "rn.315114.xyz",
+      "port": 8443,
+      "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
+      "udp": true,
+      "idle-session-check-interval": 30,
+      "idle-session-timeout": 30,
+      "min-idle-session": 0,
+      "client-fingerprint": "chrome",
+      "sni": "rn.315114.xyz",
+      "alpn": [
+        "h2",
+        "http/1.1"
+      ],
+      "skip-cert-verify": false,
+      "detour": "🚀dialer"
+    },
+    {
+      "name": "rare-anytls链式",
+      "type": "anytls",
+      "server": "de.315114.xyz",
+      "port": 8443,
+      "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
+      "udp": true,
+      "idle-session-check-interval": 30,
+      "idle-session-timeout": 30,
+      "min-idle-session": 0,
+      "client-fingerprint": "chrome",
+      "sni": "de.315114.xyz",
+      "alpn": [
+        "h2",
+        "http/1.1"
+      ],
+      "skip-cert-verify": false,
+      "detour": "🚀dialer"
     }
   ],
   "inbounds": [
