@@ -36,7 +36,6 @@
       },
       {
         "rule_set": [
-          "cn_domain",
           "PayPal",
           "Epic",
           "ABC"
@@ -52,6 +51,13 @@
         "action": "route",
         "server": "fakeip",
         "rewrite_ttl": 1
+      },
+      {
+        "rule_set": [
+          "cn_domain"
+        ],
+        "action": "route",
+        "server": "ali"
       },
       {
         "type": "logical",
