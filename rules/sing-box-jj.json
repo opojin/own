@@ -36,7 +36,6 @@
       },
       {
         "rule_set": [
-          "广告拦截",
           "AWAvenue-Ads"
         ],
         "action": "reject"
