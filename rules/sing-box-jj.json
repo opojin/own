@@ -1,681 +1,714 @@
 {
-  "dns": {
-    "servers": [
-      {
-        "tag": "google",
-        "type": "https",
-        "server": "8.8.8.8",
-        "detour": "🐟漏网之鱼"
-      },
-      {
-        "tag": "ali",
-        "type": "https",
-        "server": "223.5.5.5"
-      },
-      {
-        "tag": "fakeip",
-        "type": "fakeip",
-        "inet4_range": "198.18.0.0/15",
-        "inet6_range": "fc00::/18"
-      }
-    ],
-    "rules": [
-      {
-        "clash_mode": "Direct",
-        "action": "route",
-        "server": "ali"
-      },
-      {
-        "clash_mode": "Global",
-        "action": "route",
-        "server": "fakeip"
-      },
-      {
-        "query_type": "HTTPS",
-        "action": "reject"
-      },
-      {
-        "rule_set": [
-          "AWAvenue-Ads"
+    "dns": {
+        "servers": [
+            {
+                "tag": "google",
+                "type": "https",
+                "server": "8.8.8.8",
+                "detour": "🐟漏网之鱼"
+            },
+            {
+                "tag": "ali",
+                "type": "https",
+                "server": "223.5.5.5"
+            },
+            {
+                "tag": "fakeip",
+                "type": "fakeip",
+                "inet4_range": "198.18.0.0/15",
+                "inet6_range": "fc00::/18"
+            }
         ],
-        "action": "reject"
-      },
-      {
-        "rule_set": [
-          "PayPal",
-          "Epic",
-          "ABC"
-        ],
-        "action": "route",
-        "server": "ali"
-      },
-      {
-        "query_type": [
-          "A",
-          "AAAA"
-        ],
-        "action": "route",
-        "server": "fakeip",
-        "rewrite_ttl": 1
-      },
-      {
-        "rule_set": [
-          "cn_domain"
-        ],
-        "action": "route",
-        "server": "ali"
-      },
-      {
-        "type": "logical",
-        "mode": "and",
         "rules": [
-          {
-            "rule_set": "proxy_domain",
-            "invert": true
-          },
-          {
-            "rule_set": "cn_ip"
-          }
+            {
+                "clash_mode": "Direct",
+                "action": "route",
+                "server": "ali"
+            },
+            {
+                "clash_mode": "Global",
+                "action": "route",
+                "server": "fakeip"
+            },
+            {
+                "query_type": "HTTPS",
+                "action": "reject"
+            },
+            {
+                "rule_set": [
+                    "AWAvenue-Ads"
+                ],
+                "action": "reject"
+            },
+            {
+                "rule_set": [
+                    "PayPal",
+                    "Epic",
+                    "ABC"
+                ],
+                "action": "route",
+                "server": "ali"
+            },
+            {
+                "query_type": [
+                    "A",
+                    "AAAA"
+                ],
+                "action": "route",
+                "server": "fakeip",
+                "rewrite_ttl": 1
+            },
+            {
+                "rule_set": [
+                    "cn_domain"
+                ],
+                "action": "route",
+                "server": "ali"
+            },
+            {
+                "type": "logical",
+                "mode": "and",
+                "rules": [
+                    {
+                        "rule_set": "proxy_domain",
+                        "invert": true
+                    },
+                    {
+                        "rule_set": "cn_ip"
+                    }
+                ],
+                "server": "google",
+                "client_subnet": "114.114.114.114/24"
+            }
         ],
-        "server": "google",
-        "client_subnet": "114.114.114.114/24"
-      }
-    ],
-    "final": "google",
-    "independent_cache": true,
-    "strategy": "prefer_ipv4"
-  },
-  "route": {
-    "default_domain_resolver": {
-      "server": "ali"
+        "final": "google",
+        "independent_cache": true,
+        "strategy": "prefer_ipv4"
     },
-    "rules": [
-      {
-        "action": "sniff",
-        "sniffer": [
-          "http",
-          "tls",
-          "quic",
-          "dns"
-        ],
-        "timeout": "500ms"
-      },
-      {
-        "type": "logical",
-        "mode": "or",
+    "route": {
+        "default_domain_resolver": {
+            "server": "ali"
+        },
         "rules": [
-          {
-            "port": 53
-          },
-          {
-            "protocol": "dns"
-          }
+            {
+                "action": "sniff",
+                "sniffer": [
+                    "http",
+                    "tls",
+                    "quic",
+                    "dns"
+                ],
+                "timeout": "500ms"
+            },
+            {
+                "type": "logical",
+                "mode": "or",
+                "rules": [
+                    {
+                        "port": 53
+                    },
+                    {
+                        "protocol": "dns"
+                    }
+                ],
+                "action": "hijack-dns"
+            },
+            {
+                "ip_is_private": true,
+                "action": "route",
+                "outbound": "direct"
+            },
+            {
+                "rule_set": [
+                    "广告拦截",
+                    "AWAvenue-Ads"
+                ],
+                "action": "route",
+                "outbound": "🍃广告拦截"
+            },
+            {
+                "domain": [
+                    "msmp.abchina.com.cn"
+                ],
+                "action": "route",
+                "outbound": "🍃广告拦截"
+            },
+            {
+                "clash_mode": "Global",
+                "action": "route",
+                "outbound": "GLOBAL"
+            },
+            {
+                "clash_mode": "Direct",
+                "action": "route",
+                "outbound": "direct"
+            },
+            {
+                "rule_set": [
+                    "netflix_ip",
+                    "netflix_domain"
+                ],
+                "action": "route",
+                "outbound": "🐟漏网之鱼"
+            },
+            {
+                "protocol": "quic",
+                "network": "udp",
+                "rule_set": "youtube_domain",
+                "action": "reject"
+            },
+            {
+                "rule_set": "youtube_domain",
+                "action": "route",
+                "outbound": "🌍YouTube"
+            },
+            {
+                "rule_set": "openai_domain",
+                "action": "route",
+                "outbound": "🤖OpenAI"
+            },
+            {
+                "rule_set": "Emby",
+                "action": "route",
+                "outbound": "📺emby"
+            },
+            {
+                "rule_set": [
+                    "telegram_ip",
+                    "Spotify",
+                    "telegram_domain"
+                ],
+                "action": "route",
+                "outbound": "📱TG"
+            },
+            {
+                "rule_set": [
+                    "google_ip",
+                    "google_domain"
+                ],
+                "action": "route",
+                "outbound": "🎯Europe"
+            },
+            {
+                "type": "logical",
+                "mode": "and",
+                "rules": [
+                    {
+                        "rule_set": "proxy_domain"
+                    },
+                    {
+                        "invert": true,
+                        "rule_set": [
+                            "cn_domain",
+                            "google_domain",
+                            "telegram_domain",
+                            "netflix_domain"
+                        ]
+                    }
+                ],
+                "action": "route",
+                "outbound": "🐟漏网之鱼"
+            },
+            {
+                "domain_suffix": "eslink.cc",
+                "action": "route",
+                "outbound": "direct"
+            },
+            {
+                "domain": [
+                    "clash.razord.top",
+                    "yacd.metacubex.one",
+                    "yacd.haishan.me",
+                    "d.metacubex.one"
+                ],
+                "action": "route",
+                "outbound": "direct"
+            },
+            {
+                "rule_set": [
+                    "PayPal",
+                    "Epic",
+                    "ABC",
+                    "cn_domain"
+                ],
+                "action": "route",
+                "outbound": "direct"
+            },
+            {
+                "action": "resolve",
+                "match_only": true
+            },
+            {
+                "rule_set": [
+                    "cn_ip"
+                ],
+                "action": "route",
+                "outbound": "direct"
+            }
         ],
-        "action": "hijack-dns"
-      },
-      {
-        "ip_is_private": true,
-        "action": "route",
-        "outbound": "direct"
-      },
-      {
         "rule_set": [
-          "广告拦截",
-          "AWAvenue-Ads"
+            {
+                "tag": "广告拦截",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "AWAvenue-Ads",
+                "type": "remote",
+                "format": "source",
+                "url": "https://github.boki.moe/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "Emby",
+                "type": "remote",
+                "format": "source",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/opojin/own/refs/heads/main/rules/Emby.json",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "PayPal",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/PayPal/PayPal.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "Epic",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/Epic/Epic.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "ABC",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/ABC/ABC.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "cn_ip",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "cn_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/cn.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "google_ip",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/google.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "google_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/google.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "Spotify",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/refs/heads/main/rule/Spotify/Spotify.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "netflix_ip",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/netflix.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "netflix_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/netflix.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "openai_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/openai.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "proxy_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/geolocation-!cn.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "telegram_ip",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/telegram.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "telegram_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/telegram.srs",
+                "download_detour": "direct"
+            },
+            {
+                "tag": "youtube_domain",
+                "type": "remote",
+                "format": "binary",
+                "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/youtube.srs",
+                "download_detour": "direct"
+            }
         ],
-        "action": "route",
-        "outbound": "🍃广告拦截"
-      },
-      {
-        "domain": [
-          "msmp.abchina.com.cn"
-        ],
-        "action": "route",
-        "outbound": "🍃广告拦截"
-      },
-      {
-        "clash_mode": "Global",
-        "action": "route",
-        "outbound": "GLOBAL"
-      },
-      {
-        "clash_mode": "Direct",
-        "action": "route",
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "netflix_ip",
-          "netflix_domain"
-        ],
-        "action": "route",
-        "outbound": "🐟漏网之鱼"
-      },
-      {
-        "protocol": "quic",
-        "network": "udp",
-        "rule_set": "youtube_domain",
-        "action": "reject"
-      },
-      {
-        "rule_set": "youtube_domain",
-        "action": "route",
-        "outbound": "🌍YouTube"
-      },
-      {
-        "rule_set": "openai_domain",
-        "action": "route",
-        "outbound": "🤖OpenAI"
-      },
-      {
-        "rule_set": "Emby",
-        "action": "route",
-        "outbound": "📺emby"
-      },
-      {
-        "rule_set": [
-          "telegram_ip",
-          "Spotify",
-          "telegram_domain"
-        ],
-        "action": "route",
-        "outbound": "📱TG"
-      },
-      {
-        "rule_set": [
-          "google_ip",
-          "google_domain"
-        ],
-        "action": "route",
-        "outbound": "🎯Europe"
-      },
-      {
-        "type": "logical",
-        "mode": "and",
-        "rules": [
-          {
-            "rule_set": "proxy_domain"
-          },
-          {
-            "invert": true,
-            "rule_set": [
-              "cn_domain",
-              "google_domain",
-              "telegram_domain",
-              "netflix_domain"
-            ]
-          }
-        ],
-        "action": "route",
-        "outbound": "🐟漏网之鱼"
-      },
-      {
-        "domain_suffix": "eslink.cc",
-        "action": "route",
-        "outbound": "direct"
-      },
-      {
-        "domain": [
-          "clash.razord.top",
-          "yacd.metacubex.one",
-          "yacd.haishan.me",
-          "d.metacubex.one"
-        ],
-        "action": "route",
-        "outbound": "direct"
-      },
-      {
-        "rule_set": [
-          "PayPal",
-          "Epic",
-          "ABC",
-          "cn_domain"
-        ],
-        "action": "route",
-        "outbound": "direct"
-      },
-      {
-        "action": "resolve",
-        "match_only": true
-      },
-      {
-        "rule_set": [
-          "cn_ip"
-        ],
-        "action": "route",
-        "outbound": "direct"
-      }
+        "final": "🐟漏网之鱼",
+        "auto_detect_interface": true
+    },
+    "outbounds": [
+        {
+            "tag": "🐟漏网之鱼",
+            "type": "selector",
+            "outbounds": [
+                "🎥手动切换",
+                "🌍YouTube",
+                "🎯Europe",
+                "📱TG",
+                "🚀dialer",
+                "📺emby",
+                "🤖OpenAI",
+                "rack免流",
+                "rare免流",
+                "dmit免流",
+                "rare-anytls链式",
+                "rack-anytls链式",
+                "direct"
+            ],
+            "default": "🎥手动切换"
+        },
+        {
+            "tag": "🎥手动切换",
+            "type": "selector",
+            "outbounds": [
+                "dsb免流",
+                "rack免流",
+                "rare免流",
+                "dmit免流",
+                "rare-anytls链式",
+                "rack-anytls链式"
+            ],
+            "default": "dmit免流"
+        },
+        {
+            "tag": "🌍YouTube",
+            "type": "selector",
+            "outbounds": [
+                "🎥手动切换",
+                "dsb免流",
+                "rack免流",
+                "rare免流",
+                "dmit免流"
+            ],
+            "default": "🎥手动切换"
+        },
+        {
+            "tag": "🎯Europe",
+            "type": "selector",
+            "outbounds": [
+                "🎥手动切换",
+                "dsb免流",
+                "rack免流",
+                "rare免流",
+                "dmit免流"
+            ],
+            "default": "🎥手动切换"
+        },
+        {
+            "tag": "📱TG",
+            "type": "selector",
+            "outbounds": [
+                "🎥手动切换",
+                "rack免流",
+                "rare免流",
+                "dmit免流"
+            ],
+            "default": "🎥手动切换"
+        },
+        {
+            "tag": "🚀dialer",
+            "type": "selector",
+            "outbounds": []
+        },
+        {
+            "tag": "📺emby",
+            "type": "selector",
+            "outbounds": [
+                "🎥手动切换",
+                "direct"
+            ],
+            "default": "🎥手动切换"
+        },
+        {
+            "tag": "🤖OpenAI",
+            "type": "selector",
+            "outbounds": [
+                "🎥手动切换"
+            ],
+            "default": "🎥手动切换"
+        },
+        {
+            "tag": "GLOBAL",
+            "type": "selector",
+            "outbounds": [
+                "direct",
+                "🐟漏网之鱼",
+                "🎥手动切换",
+                "🌍YouTube",
+                "🎯Europe",
+                "📱TG",
+                "🚀dialer",
+                "📺emby",
+                "🤖OpenAI",
+                "🍃广告拦截"
+            ],
+            "default": "direct"
+        },
+        {
+            "tag": "🍃广告拦截",
+            "type": "selector",
+            "outbounds": [
+                "direct",
+                "block"
+            ],
+            "default": "block"
+        },
+        {
+            "tag": "direct",
+            "type": "direct"
+        },
+        {
+            "tag": "block",
+            "type": "block"
+        },
+        {
+            "tag": "dsb免流",
+            "type": "shadowsocks",
+            "method": "2022-blake3-aes-256-gcm",
+            "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+            "detour": "dsb免流_shadowtls",
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "multiplex": {
+                "enabled": true
+            }
+        },
+        {
+            "tag": "dsb免流_shadowtls",
+            "type": "shadowtls",
+            "server": "ds.md2024.tech",
+            "server_port": 443,
+            "version": 3,
+            "password": "jr6hyvHZvgygjTng5/HQ/A==",
+            "tls": {
+                "enabled": true,
+                "server_name": "tjtn.pan.wo.cn",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true
+        },
+        {
+            "tag": "rack免流",
+            "type": "shadowsocks",
+            "method": "2022-blake3-aes-256-gcm",
+            "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+            "detour": "rack免流_shadowtls",
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "multiplex": {
+                "enabled": true
+            }
+        },
+        {
+            "tag": "rack免流_shadowtls",
+            "type": "shadowtls",
+            "server": "rn.315114.xyz",
+            "server_port": 443,
+            "version": 3,
+            "password": "jr6hyvHZvgygjTng5/HQ/A==",
+            "tls": {
+                "enabled": true,
+                "server_name": "tjtn.pan.wo.cn",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true
+        },
+        {
+            "tag": "rare免流",
+            "type": "shadowsocks",
+            "method": "2022-blake3-aes-256-gcm",
+            "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+            "detour": "rare免流_shadowtls",
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "multiplex": {
+                "enabled": true
+            }
+        },
+        {
+            "tag": "rare免流_shadowtls",
+            "type": "shadowtls",
+            "server": "de.315114.xyz",
+            "server_port": 443,
+            "version": 3,
+            "password": "jr6hyvHZvgygjTng5/HQ/A==",
+            "tls": {
+                "enabled": true,
+                "server_name": "tjtn.pan.wo.cn",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true
+        },
+        {
+            "tag": "dmit免流",
+            "type": "shadowsocks",
+            "method": "2022-blake3-aes-256-gcm",
+            "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
+            "detour": "dmit免流_shadowtls",
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "multiplex": {
+                "enabled": true
+            }
+        },
+        {
+            "tag": "dmit免流_shadowtls",
+            "type": "shadowtls",
+            "server": "dom.315114.xyz",
+            "server_port": 443,
+            "version": 3,
+            "password": "jr6hyvHZvgygjTng5/HQ/A==",
+            "tls": {
+                "enabled": true,
+                "server_name": "tjtn.pan.wo.cn",
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true
+        },
+        {
+            "tag": "rack-anytls链式",
+            "type": "anytls",
+            "server": "rn.315114.xyz",
+            "server_port": 8443,
+            "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
+            "tls": {
+                "enabled": true,
+                "server_name": "rn.315114.xyz",
+                "insecure": false,
+                "alpn": [
+                    "h2",
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "idle_session_check_interval": "30s",
+            "idle_session_timeout": "30s",
+            "min_idle_session": 0,
+            "detour": "🚀dialer"
+        },
+        {
+            "tag": "rare-anytls链式",
+            "type": "anytls",
+            "server": "de.315114.xyz",
+            "server_port": 8443,
+            "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
+            "tls": {
+                "enabled": true,
+                "server_name": "de.315114.xyz",
+                "insecure": false,
+                "alpn": [
+                    "h2",
+                    "http/1.1"
+                ],
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "chrome"
+                }
+            },
+            "idle_session_check_interval": "30s",
+            "idle_session_timeout": "30s",
+            "min_idle_session": 0,
+            "detour": "🚀dialer"
+        }
     ],
-    "rule_set": [
-      {
-        "tag": "广告拦截",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "AWAvenue-Ads",
-        "type": "remote",
-        "format": "source",
-        "url": "https://github.boki.moe/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.json",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "Emby",
-        "type": "remote",
-        "format": "source",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/opojin/own/refs/heads/main/rules/Emby.json",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "PayPal",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/PayPal/PayPal.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "Epic",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/Epic/Epic.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "ABC",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/main/rule/ABC/ABC.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "cn_ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geoip/cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "cn_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "google_ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/google.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "google_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/google.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "Spotify",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/senshinya/singbox_ruleset/refs/heads/main/rule/Spotify/Spotify.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "netflix_ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/netflix.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "netflix_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/netflix.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "openai_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/openai.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "proxy_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo/geosite/geolocation-!cn.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "telegram_ip",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geoip/telegram.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "telegram_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/telegram.srs",
-        "download_detour": "direct"
-      },
-      {
-        "tag": "youtube_domain",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://ghfast.top/https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/sing/geo-lite/geosite/youtube.srs",
-        "download_detour": "direct"
-      }
+    "inbounds": [
+        {
+            "type": "tun",
+            "address": [
+                "172.19.0.0/30",
+                "fdfe:dcba:9876::0/126"
+            ],
+            "stack": "mixed",
+            "auto_route": true,
+            "platform": {
+                "http_proxy": {
+                    "enabled": true,
+                    "server": "127.0.0.1",
+                    "server_port": 7890
+                }
+            }
+        },
+        {
+            "type": "mixed",
+            "listen": "127.0.0.1",
+            "listen_port": 7890
+        }
     ],
-    "final": "🐟漏网之鱼",
-    "auto_detect_interface": true
-  },
-  "outbounds": [
-    {
-      "tag": "🐟漏网之鱼",
-      "type": "selector",
-      "outbounds": [
-        "🎥手动切换",
-        "🌍YouTube",
-        "🎯Europe",
-        "📱TG",
-        "🚀dialer",
-        "📺emby",
-        "🤖OpenAI",
-        "rack免流",
-        "rare免流",
-        "dmit免流",
-        "rare-anytls链式",
-        "rack-anytls链式",
-        "direct"
-      ],
-      "default": "🎥手动切换"
-    },
-    {
-      "tag": "🎥手动切换",
-      "type": "selector",
-      "outbounds": [
-        "rack免流",
-        "rare免流",
-        "dmit免流",
-        "rare-anytls链式",
-        "rack-anytls链式"
-      ],
-      "default": "dmit免流"
-    },
-    {
-      "tag": "🌍YouTube",
-      "type": "selector",
-      "outbounds": [
-        "🎥手动切换",
-        "rack免流",
-        "rare免流",
-        "dmit免流"
-      ],
-      "default": "🎥手动切换"
-    },
-    {
-      "tag": "🎯Europe",
-      "type": "selector",
-      "outbounds": [
-        "🎥手动切换",
-        "rack免流",
-        "rare免流",
-        "dmit免流"
-      ],
-      "default": "🎥手动切换"
-    },
-    {
-      "tag": "📱TG",
-      "type": "selector",
-      "outbounds": [
-        "🎥手动切换",
-        "rack免流",
-        "rare免流",
-        "dmit免流"
-      ],
-      "default": "🎥手动切换"
-    },
-    {
-      "tag": "🚀dialer",
-      "type": "selector",
-      "outbounds": []
-    },
-    {
-      "tag": "📺emby",
-      "type": "selector",
-      "outbounds": [
-        "🎥手动切换",
-        "direct"
-      ],
-      "default": "🎥手动切换"
-    },
-    {
-      "tag": "🤖OpenAI",
-      "type": "selector",
-      "outbounds": [
-        "🎥手动切换"
-      ],
-      "default": "🎥手动切换"
-    },
-    {
-      "tag": "GLOBAL",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "🐟漏网之鱼",
-        "🎥手动切换",
-        "🌍YouTube",
-        "🎯Europe",
-        "📱TG",
-        "🚀dialer",
-        "📺emby",
-        "🤖OpenAI",
-        "🍃广告拦截"
-      ],
-      "default": "direct"
-    },
-    {
-      "tag": "🍃广告拦截",
-      "type": "selector",
-      "outbounds": [
-        "direct",
-        "block"
-      ],
-      "default": "block"
-    },
-    {
-      "tag": "direct",
-      "type": "direct"
-    },
-    {
-      "tag": "block",
-      "type": "block"
-    },
-    {
-      "tag": "rack免流",
-      "type": "shadowsocks",
-      "method": "2022-blake3-aes-256-gcm",
-      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
-      "detour": "rack免流_shadowtls",
-      "tcp_fast_open": true,
-      "tcp_multi_path": true,
-      "multiplex": {
-        "enabled": true
-      }
-    },
-    {
-      "tag": "rack免流_shadowtls",
-      "type": "shadowtls",
-      "server": "rn.315114.xyz",
-      "server_port": 443,
-      "version": 3,
-      "password": "jr6hyvHZvgygjTng5/HQ/A==",
-      "tls": {
-        "enabled": true,
-        "server_name": "tjtn.pan.wo.cn",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
+    "experimental": {
+        "clash_api": {
+            "external_controller": "127.0.0.1:9090",
+            "external_ui": "ui",
+            "external_ui_download_url": "https://ghfast.top/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+            "external_ui_download_detour": "direct"
+        },
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true
         }
-      },
-      "tcp_fast_open": true,
-      "tcp_multi_path": true
     },
-    {
-      "tag": "rare免流",
-      "type": "shadowsocks",
-      "method": "2022-blake3-aes-256-gcm",
-      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
-      "detour": "rare免流_shadowtls",
-      "tcp_fast_open": true,
-      "tcp_multi_path": true,
-      "multiplex": {
-        "enabled": true
-      }
-    },
-    {
-      "tag": "rare免流_shadowtls",
-      "type": "shadowtls",
-      "server": "de.315114.xyz",
-      "server_port": 443,
-      "version": 3,
-      "password": "jr6hyvHZvgygjTng5/HQ/A==",
-      "tls": {
-        "enabled": true,
-        "server_name": "tjtn.pan.wo.cn",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        }
-      },
-      "tcp_fast_open": true,
-      "tcp_multi_path": true
-    },
-    {
-      "tag": "dmit免流",
-      "type": "shadowsocks",
-      "method": "2022-blake3-aes-256-gcm",
-      "password": "G+ck4yzohzRukVmaJtPRD6yVxee76ptxRollghkBi98=",
-      "detour": "dmit免流_shadowtls",
-      "tcp_fast_open": true,
-      "tcp_multi_path": true,
-      "multiplex": {
-        "enabled": true
-      }
-    },
-    {
-      "tag": "dmit免流_shadowtls",
-      "type": "shadowtls",
-      "server": "dom.315114.xyz",
-      "server_port": 443,
-      "version": 3,
-      "password": "jr6hyvHZvgygjTng5/HQ/A==",
-      "tls": {
-        "enabled": true,
-        "server_name": "tjtn.pan.wo.cn",
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        }
-      },
-      "tcp_fast_open": true,
-      "tcp_multi_path": true
-    },
-    {
-      "tag": "rack-anytls链式",
-      "type": "anytls",
-      "server": "rn.315114.xyz",
-      "server_port": 8443,
-      "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
-      "tls": {
-        "enabled": true,
-        "server_name": "rn.315114.xyz",
-        "insecure": false,
-        "alpn": [
-          "h2",
-          "http/1.1"
-        ],
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        }
-      },
-      "idle_session_check_interval": "30s",
-      "idle_session_timeout": "30s",
-      "min_idle_session": 0,
-      "detour": "🚀dialer"
-    },
-    {
-      "tag": "rare-anytls链式",
-      "type": "anytls",
-      "server": "de.315114.xyz",
-      "server_port": 8443,
-      "password": "aHR0cHM6Ly9ibG9nLjUyMDEzMTIwLnh5ei8=",
-      "tls": {
-        "enabled": true,
-        "server_name": "de.315114.xyz",
-        "insecure": false,
-        "alpn": [
-          "h2",
-          "http/1.1"
-        ],
-        "utls": {
-          "enabled": true,
-          "fingerprint": "chrome"
-        }
-      },
-      "idle_session_check_interval": "30s",
-      "idle_session_timeout": "30s",
-      "min_idle_session": 0,
-      "detour": "🚀dialer"
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "timestamp": true
     }
-  ],
-  "inbounds": [
-    {
-      "type": "tun",
-      "address": [
-        "172.19.0.0/30",
-        "fdfe:dcba:9876::0/126"
-      ],
-      "stack": "mixed",
-      "auto_route": true,
-      "platform": {
-        "http_proxy": {
-          "enabled": true,
-          "server": "127.0.0.1",
-          "server_port": 7890
-        }
-      }
-    },
-    {
-      "type": "mixed",
-      "listen": "127.0.0.1",
-      "listen_port": 7890
-    }
-  ],
-  "experimental": {
-    "clash_api": {
-      "external_controller": "127.0.0.1:9090",
-      "external_ui": "ui",
-      "external_ui_download_url": "https://ghfast.top/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
-      "external_ui_download_detour": "direct"
-    },
-    "cache_file": {
-      "enabled": true,
-      "store_fakeip": true
-    }
-  },
-  "log": {
-    "disabled": false,
-    "level": "info",
-    "timestamp": true
-  }
 }
